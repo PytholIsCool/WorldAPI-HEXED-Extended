@@ -2,6 +2,7 @@
 using UnityEngine;
 using VRC.Localization;
 using WorldAPI.ButtonAPI.MM;
+using Object = UnityEngine.Object;
 
 namespace WorldAPI.ButtonAPI.Controls;
 
