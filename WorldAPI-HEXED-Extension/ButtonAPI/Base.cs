@@ -5,7 +5,7 @@ using WorldAPI.ButtonAPI.MM.Carousel.Items;
 using VRC.UI.Core.Styles;
 using Il2CppInterop.Runtime;
 using CLogs = HexedTools.HookUtils.Logs;
-using WCv2.ButtonAPI.QM.Carousel.Items;
+using WorldAPI.ButtonAPI.QM.Carousel.Items;
 
 namespace WorldAPI;
 
@@ -41,7 +41,7 @@ public class APIBase
     public static Sprite OffSprite, OnSprite; // Override these if u want custom ones
     public static GameObject QuickMenu, ColpButtonGrp, ButtonGrp, ButtonGrpText;
     //qm caro
-    public static GameObject QMCarouselPageTemplate, QMCarouselSeparator, QMCarouselToggleTemplate, QMCarouselSliderTemplate, QMCarouselSelectorTemplate;
+    public static GameObject QMCarouselPageTemplate, QMCarouselSeparator, QMCarouselToggleTemplate, QMCarouselSliderTemplate, QMCarouselSelectorTemplate, QMCarouselTitleTemplate, QMCarouselFuncButtonTemplate;
     //qm wings
     public static GameObject WingParentL, WingParentR;
 
@@ -83,6 +83,8 @@ public class APIBase
         if ((QMCarouselSeparator = QuickMenu?.transform.Find("CanvasGroup/Container/Window/QMParent/Menu_QM_GeneralSettings/Panel_QM_ScrollRect/Viewport/VerticalLayoutGroup/UIElements/QM_Settings_Panel/VerticalLayoutGroup/Separator")?.gameObject) == null) throw new NullReferenceException("QuickMenu Carousel Separator Is Null!");
         if ((QMCarouselToggleTemplate = QuickMenu?.transform.Find("CanvasGroup/Container/Window/QMParent/Menu_QM_GeneralSettings/Panel_QM_ScrollRect/Viewport/VerticalLayoutGroup/UIElements/QM_Settings_Panel/VerticalLayoutGroup/ShowGroupBanner")?.gameObject) == null) throw new NullReferenceException("QuickMenu Carousel Toggle Template Is Null!");
         if ((QMCarouselSelectorTemplate = QuickMenu?.transform.Find("CanvasGroup/Container/Window/QMParent/Menu_QM_GeneralSettings/Panel_QM_ScrollRect/Viewport/VerticalLayoutGroup/UIElements/QM_Settings_Panel/VerticalLayoutGroup/NameplateVisibility")?.gameObject) == null) throw new NullReferenceException("QuickMenu Carousel Selector Template Is Null!");
+        if ((QMCarouselTitleTemplate = QuickMenu?.transform.Find("CanvasGroup/Container/Window/QMParent/Menu_QM_GeneralSettings/Panel_QM_ScrollRect/Viewport/VerticalLayoutGroup/Chatbox/QM_Settings_Panel/VerticalLayoutGroup/ChatboxFunctionTitle")?.gameObject) == null) throw new NullReferenceException("QuickMenu Carousel Title Template Is Null!");
+        if ((QMCarouselFuncButtonTemplate = QuickMenu?.transform.Find("CanvasGroup/Container/Window/QMParent/Menu_QM_GeneralSettings/Panel_QM_ScrollRect/Viewport/VerticalLayoutGroup/Chatbox/QM_Settings_Panel/VerticalLayoutGroup/ChatboxFunctionButtons")?.gameObject) == null) throw new NullReferenceException("QuickMenu Carousel Function Button Template Is Null!");
         //wings
         if ((WingParentL = QuickMenu?.transform.Find("CanvasGroup/Container/Window/Wing_Left/Container/InnerContainer/WingMenu/ScrollRect/Viewport/VerticalLayoutGroup")?.gameObject) == null) throw new NullReferenceException("WingParentL Is Null!");
         if ((WingParentR = QuickMenu?.transform.Find("CanvasGroup/Container/Window/Wing_Right/Container/InnerContainer/WingMenu/ScrollRect/Viewport/VerticalLayoutGroup")?.gameObject) == null) throw new NullReferenceException("WingParentR Is Null!");

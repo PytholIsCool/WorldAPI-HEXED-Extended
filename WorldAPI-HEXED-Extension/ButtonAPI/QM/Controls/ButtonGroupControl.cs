@@ -6,10 +6,12 @@ using UnityEngine.UI;
 using WorldAPI.ButtonAPI.Buttons;
 using WorldAPI.ButtonAPI.Buttons.Groups;
 using WorldAPI.ButtonAPI.Extras;
+using Object = UnityEngine.Object;
 
 namespace WorldAPI.ButtonAPI.Controls;
 
-public class ButtonGroupControl : Root {
+public class ButtonGroupControl : Root
+{
     internal List<VRCButton> _buttons = new();
     internal List<VRCToggle> _toggles = new();
 
@@ -23,15 +25,15 @@ public class ButtonGroupControl : Root {
     /// <summary>
     ///  Remove Buttons, Toggles, anything that was put on this ButtnGrp
     /// </summary>
-    public void RemoveAllChildren() {
+    public void RemoveAllChildren()
+    {
         GroupContents.transform.DestroyChildren();
         _buttons.Clear();
         _toggles.Clear();
     }
 
-
     public VRCButton AddButton(string text, string tooltip, Action listener, bool Half = false, bool SubMenuIcon = false, Sprite Icon = null) =>
-        new(gameObject.transform, text, tooltip, listener, Half, SubMenuIcon, Icon);
+    new(gameObject.transform, text, tooltip, listener, Half, SubMenuIcon, Icon);
 
     public VRCButton AddButton(string text, string tooltip, Action<VRCButton> listener, bool Half = false, bool SubMenuIcon = false, Sprite Icon = null) =>
         new(gameObject.transform, text, tooltip, listener, Half, SubMenuIcon, Icon);

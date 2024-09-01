@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace WorldAPI;
 
-public class Base64
+public class Base64 //this is a useless class, dont worry about this
 {
     public static Dictionary<string, Sprite> AlreadyLoaded = new();
 

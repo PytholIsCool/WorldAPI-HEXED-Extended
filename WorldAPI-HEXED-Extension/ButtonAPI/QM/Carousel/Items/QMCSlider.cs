@@ -14,9 +14,10 @@ using VRC.UI.Elements.Tooltips;
 using WorldAPI;
 using WorldAPI.ButtonAPI.Controls;
 using WorldAPI.ButtonAPI.Extras;
+using WorldAPI.ButtonAPI.QM.Carousel;
 using Object = UnityEngine.Object;
 
-namespace WCv2.ButtonAPI.QM.Carousel.Items
+namespace WorldAPI.ButtonAPI.QM.Carousel.Items //this control is gonna be exclusive to the qmc groups (legit jsut use a slider. its the same reference and the code in both classes is nearly identical)
 {
     public class QMCSlider : Root
     {
@@ -172,7 +173,12 @@ namespace WCv2.ButtonAPI.QM.Carousel.Items
 
             toggleButton.gameObject.GetComponent<UiToggleTooltip>()._localizableString = "Enable / disable this setting".Localize();
         }
-
+        public void SoftSetState(bool value)
+        {
+            shouldInvoke = false;
+            ToggleCompnt.isOn = value;
+            shouldInvoke = true;
+        }
         private void SetVisualComponents(bool defaultState)
         {
             if (defaultState == false)

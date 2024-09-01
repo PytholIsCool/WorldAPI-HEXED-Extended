@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using VRC.Localization;
-using VRC.UI.Elements.Controls;
+using UnityEngine.UI;
 using WorldAPI.ButtonAPI.Controls;
 using WorldAPI;
 using Object = UnityEngine.Object;
-using UnityEngine.UI;
+using VRC.UI.Elements.Controls;
+using WorldAPI.ButtonAPI.Extras;
+using WorldAPI.ButtonAPI.Groups;
 
-namespace WCv2.ButtonAPI.QM.Carousel.Items
+namespace WorldAPI.ButtonAPI.QM.Carousel.Items
 {
     public class QMCSelector : ExtentedControl
     {
@@ -22,12 +21,13 @@ namespace WCv2.ButtonAPI.QM.Carousel.Items
 
         private List<Setting> settings = new List<Setting>();
         private int currentIndex = 0;
-        public QMCSelector(QMCGroup group, string text, string containerTooltip, bool separator = false)
+
+        public QMCSelector(Transform parent, string text, string containerTooltip, bool separator = false)
         {
             if (!APIBase.IsReady())
                 throw new NullReferenceException("Object Search had FAILED!");
 
-            gameObject = Object.Instantiate(APIBase.QMCarouselSelectorTemplate, group.GetTransform().Find("QM_Settings_Panel/VerticalLayoutGroup").transform);
+            gameObject = Object.Instantiate(APIBase.QMCarouselSelectorTemplate, parent);
             transform = gameObject.transform;
             gameObject.name = text;
 
@@ -38,7 +38,7 @@ namespace WCv2.ButtonAPI.QM.Carousel.Items
 
             if (separator != false)
             {
-                GameObject seB = Object.Instantiate(APIBase.QMCarouselSeparator, group.GetTransform().Find("QM_Settings_Panel/VerticalLayoutGroup").transform);
+                GameObject seB = Object.Instantiate(APIBase.QMCarouselSeparator, parent);
                 seB.name = "Separator";
             }
 
@@ -49,6 +49,7 @@ namespace WCv2.ButtonAPI.QM.Carousel.Items
             Button buttonRight = transform.Find("RightItemContainer/ButtonRight").transform.GetComponent<Button>();
             buttonRight.onClick.AddListener(new Action(() => ScrollRight()));
         }
+
         public void AddSetting(string name, string tooltip, Action listener)
         {
             settings.Add(new Setting { Name = name, Tooltip = tooltip, Listener = listener });
@@ -85,12 +86,21 @@ namespace WCv2.ButtonAPI.QM.Carousel.Items
 
             setting.Listener?.Invoke();
         }
+
         private class Setting
         {
             public string Name { get; set; }
             public string Tooltip { get; set; }
             public Action Listener { get; set; }
         }
+
+        // Alternate constructors for different contexts
+        public QMCSelector(QMCGroup group, string text, string containerTooltip, bool separator = false)
+            : this(group.GetTransform().Find("QM_Settings_Panel/VerticalLayoutGroup").transform, text, containerTooltip, separator)
+        { }
+
+        public QMCSelector(CollapsibleButtonGroup buttonGroup, string text, string containerTooltip, bool separator = false)
+            : this(buttonGroup.QMCParent, text, containerTooltip, separator)
+        { }
     }
 }
-

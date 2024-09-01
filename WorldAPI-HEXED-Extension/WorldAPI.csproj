@@ -17,19 +17,19 @@
 
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\..\..\Hexed\Settings\UnityLoader\VRChat\Dummy\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Hexed\Settings\UnityLoader\VRChat\Dummy\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="ConsoleTool">
-      <HintPath>..\..\..\..\..\Hexed\Settings\UnityLoader\VRChat\Runtime\ConsoleTool.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Hexed\Settings\UnityLoader\VRChat\Runtime\ConsoleTool.dll</HintPath>
     </Reference>
     <Reference Include="CoreRuntime">
-      <HintPath>..\..\..\..\..\Hexed\Settings\UnityLoader\VRChat\Runtime\CoreRuntime.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Hexed\Settings\UnityLoader\VRChat\Runtime\CoreRuntime.dll</HintPath>
     </Reference>
     <Reference Include="DataModel">
       <HintPath>C:\Hexed\Settings\UnityLoader\VRChat\Dummy\DataModel.dll</HintPath>
     </Reference>
     <Reference Include="Il2CppInterop.Runtime">
-      <HintPath>..\..\..\..\..\Hexed\Settings\UnityLoader\VRChat\Runtime\Il2CppInterop.Runtime.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Hexed\Settings\UnityLoader\VRChat\Runtime\Il2CppInterop.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Il2Cppmscorlib">
       <HintPath>C:\Hexed\Settings\UnityLoader\VRChat\Dummy\Il2Cppmscorlib.dll</HintPath>

@@ -16,7 +16,7 @@ public class VRCSlider {
     public TextMeshProUGUI TextMeshPro { get; private set; }
     public Transform transform { get; private set; }
     public Transform slider { get; private set; }
-    public SnapSliderExtendedCallbacks snapSlider { get; private set; }
+    public SnapSliderExtendedCallbacks snapSlider { get; private set; } //py note: ill probably eliminate the QMCSlider class and just replace it with this in the future. still deciding because my slider has more controls than this one
 
     /// <summary>
     /// listener Returns BOTH the slider value and the current slider for easy live slider editing 

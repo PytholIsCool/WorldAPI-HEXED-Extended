@@ -7,9 +7,9 @@ using WorldAPI.ButtonAPI.QM.Controls;
 using TMPro;
 using WorldAPI.ButtonAPI.Extras;
 using Object = UnityEngine.Object;
-using WCv2.ButtonAPI.QM.Carousel.Items;
+using WorldAPI.ButtonAPI.QM.Carousel.Items;
 
-namespace WCv2.ButtonAPI.QM.Carousel
+namespace WorldAPI.ButtonAPI.QM.Carousel
 {
     public class QMCGroup : ButtonGroupControl
     {
