@@ -15,8 +15,17 @@ This extension comes with:
 - Added QMCSlider Control
 - Added QMCSelector Control
 
+## Update V2
+- Added State Change stuff for toggles
+- Added QMCTitle
+- Added QMCFuncButton
+- QMCSelector, QMCToggle, and QMCFuncButton controls can now be use in collapsible button groups
+- Started work on the Wing API
+- I love PDK
+
   ## Known Bug(s)
 - QMCSlider Reset Button Styling On Init Not Corrosponding With Slider Toggle and Slider Mute Button State Defaults
+- Applying a QMC-Type Control to a collapsible button group will put the control at the above all other controls by default
 
 *Example's for how to use the new controls can be found in my exmaples repo*
 
