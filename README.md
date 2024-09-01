@@ -20,6 +20,7 @@ This extension comes with:
 - Added QMCTitle
 - Added QMCFuncButton
 - QMCSelector, QMCToggle, and QMCFuncButton controls can now be use in collapsible button groups
+- Fixed namespaces
 - Started work on the Wing API
 - I love PDK
 
