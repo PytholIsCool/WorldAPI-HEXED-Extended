@@ -24,6 +24,9 @@ This extension comes with:
 - Started work on the Wing API
 - I love PDK
 
+## Update V2.0.1
+- Improved button component/object formatting and centering
+
   ## Known Bug(s)
 - QMCSlider Reset Button Styling On Init Not Corrosponding With Slider Toggle and Slider Mute Button State Defaults
 - Applying a QMC-Type Control to a collapsible button group will put the control at the above all other controls by default
