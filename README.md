@@ -30,7 +30,7 @@ This extension comes with:
 
 # Credits
 - Cyconi
-> Small bug fixes here and there (such as reference changes, ect) and PLENTY of requests
+> Small bug fixes here and there (such as parent reference changes, ect), text placement and centering fixes and PLENTY of requests
 - Hacker_1254
 > Creator of WorldAPI
 - Psychotic
