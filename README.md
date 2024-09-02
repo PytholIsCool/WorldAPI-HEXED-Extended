@@ -28,6 +28,16 @@ This extension comes with:
 - QMCSlider Reset Button Styling On Init Not Corrosponding With Slider Toggle and Slider Mute Button State Defaults
 - Applying a QMC-Type Control to a collapsible button group will put the control at the above all other controls by default
 
+# Credits
+- Cyconi
+> Small bug fixes here and there (such as reference changes, ect) and PLENTY of requests
+- Hacker_1254
+> Creator of WorldAPI
+- Psychotic
+> Requests here and there
+- SlyFoox/Salad/HisHaven
+> Kept me sane (I love you)
+
 *Examples for how to use the new controls can be found in:*
 
 https://github.com/PytholIsCool/WorldAPI-HEXED-Extension-Examples/blob/main/WorldAPI-HEXED-Extension-Examples/HexedBase/Example.cs
