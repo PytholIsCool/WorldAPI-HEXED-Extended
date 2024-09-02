@@ -64,7 +64,7 @@ public class ExtentedControl : Root
                 break;
             case HalfType.Normal:
                 ImgCompnt.transform.localPosition = new Vector3(0f, 0f, 0f);
-                TMProCompnt.transform.localPosition = new Vector3(0, 35, 0);
+                TMProCompnt.transform.localPosition = new Vector3(0, 43, 0);
                 break;
             case HalfType.Bottom:
                 ImgCompnt.transform.localPosition = new Vector3(0f, 0f, 0f);
