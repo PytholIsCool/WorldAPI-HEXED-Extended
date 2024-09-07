@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine.UI;
 using UnityEngine;
 using WorldAPI;
@@ -11,8 +11,9 @@ using WorldAPI.ButtonAPI.QM.Carousel.Items;
 
 namespace WorldAPI.ButtonAPI.QM.Carousel
 {
-    public class QMCGroup : ButtonGroupControl
+    public class QMCGroup : Root
     {
+        public RectMask2D parentMenuMask { get; internal set; }
         public Transform MenuContents { get; internal set; }
 
         private readonly VerticalLayoutGroup Layout;
@@ -43,17 +44,25 @@ namespace WorldAPI.ButtonAPI.QM.Carousel
         public QMCGroup(WorldPage page, string text, TextAnchor ButtonAlignment = TextAnchor.UpperLeft) : this(page.MenuContents, text, ButtonAlignment)
         { }
 
-        public void AddToggle(string text, Action<bool> stateChange, bool defaultState = false, string toolTip = "", bool separator = false)
+        public QMCToggle AddQMCToggle(string text, string tooltip, Action<bool> stateChange, bool defaultState = false, bool separator = false)
         {
-            new QMCToggle(this, text, stateChange, defaultState, toolTip, separator);
+            return new QMCToggle(this, text, tooltip, stateChange, defaultState, separator);
         }
-        public void AddSlider(string text, string tooltip, Action<float, QMCSlider> listener, float defaultValue = 0f, float minValue = 0f, float maxValue = 100f, bool isDecimal = false, string ending = "%", bool separator = false)
+        public QMCSlider AddQMCSlider(string text, string tooltip, Action<float, QMCSlider> listener, float defaultValue = 0f, float minValue = 0f, float maxValue = 100f, bool isDecimal = false, string ending = "%", bool separator = false)
         {
-            new QMCSlider(this, text, tooltip, listener, defaultValue, minValue, maxValue, isDecimal, ending, separator);
+            return new QMCSlider(this, text, tooltip, listener, defaultValue, minValue, maxValue, isDecimal, ending, separator);
         }
-        public void AddSelector(string text, string containerTooltip)
+        public QMCSelector AddQMCSelector(string text, string containerTooltip)
         {
-            new QMCSelector(this, text, containerTooltip);
+            return new QMCSelector(this, text, containerTooltip);
+        }
+        public QMCFuncButton AddQMCFuncButton(string text, string tooltip, Action listener, bool rightContainer = false, bool separator = false, Sprite sprite = null)
+        {
+            return new QMCFuncButton(this, text, tooltip, listener, rightContainer, separator, sprite);
+        }
+        public QMCTitle AddQMCTitle(string text, bool separator = false)
+        {
+            return new QMCTitle(this, text, separator);
         }
     }
 }
