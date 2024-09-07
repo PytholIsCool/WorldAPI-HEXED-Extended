@@ -17,12 +17,12 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
     public class QMCToggle : ToggleControl //good chunk of this was taken from the CToggle class.
     {
         public Action<bool> ListenerC { get; set; }
-        public Action<bool> SecondaryListener {  get; set; }
+        public Action<bool> SecondaryListener {  get; set; } //this will be used later on...
         public UiToggleTooltip ToolTip { get; private set; }
-        public UiToggleTooltip SecondaryToolTip { get; private set; }
-        public Transform AdditionalToggle { get; set; }
+        public UiToggleTooltip SecondaryToolTip { get; private set; } //this will be used later on...
+        public Transform AdditionalToggle { get; set; } //this will be used later on...
         public Transform Handle { get; private set; }
-        public Transform SecondaryHandle { get; private set; }
+        public Transform SecondaryHandle { get; private set; } //this will be used later on...
 
         private RadioButton toggleSwitch;
         private bool shouldInvoke = true;
