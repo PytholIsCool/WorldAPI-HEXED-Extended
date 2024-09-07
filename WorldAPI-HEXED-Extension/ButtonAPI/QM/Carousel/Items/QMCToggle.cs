@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
@@ -10,20 +10,25 @@ using WorldAPI.ButtonAPI.Controls;
 using WorldAPI;
 using Object = UnityEngine.Object;
 using WorldAPI.ButtonAPI.Groups;
+using Valve.VR.InteractionSystem;
 
 namespace WorldAPI.ButtonAPI.QM.Carousel.Items
 {
     public class QMCToggle : ToggleControl //good chunk of this was taken from the CToggle class.
     {
         public Action<bool> ListenerC { get; set; }
+        public Action<bool> SecondaryListener {  get; set; }
         public UiToggleTooltip ToolTip { get; private set; }
+        public UiToggleTooltip SecondaryToolTip { get; private set; }
+        public Transform AdditionalToggle { get; set; }
         public Transform Handle { get; private set; }
+        public Transform SecondaryHandle { get; private set; }
 
         private RadioButton toggleSwitch;
         private bool shouldInvoke = true;
 
         private static Vector3 onPos = new(93, 0, 0), offPos = new(30, 0, 0);
-        public QMCToggle(Transform parent, string text, Action<bool> stateChange, bool defaultState = false, string tooltip = "", bool separator = false)
+        public QMCToggle(Transform parent, string text, string tooltip, Action<bool> stateChange, bool defaultState = false, bool separator = false)
         {
             if (!APIBase.IsReady())
                 throw new NullReferenceException("Object Search had FAILED!");
@@ -44,7 +49,6 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
                 GameObject seB = Object.Instantiate(APIBase.QMCarouselSeparator, parent);
                 seB.name = "Separator";
             }
-
             toggleSwitch = transform.Find("RightItemContainer/Cell_MM_OnOffSwitch").GetComponent<RadioButton>();
             toggleSwitch.Method_Public_Void_Boolean_0(defaultState);
 
@@ -64,12 +68,15 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
             }));
             gameObject.GetComponent<SettingComponent>().enabled = false;
         }
-        public void SoftSetState(bool value)
+        public QMCToggle SetState(bool value)
         {
             shouldInvoke = false;
             ToggleCompnt.isOn = value;
             shouldInvoke = true;
+
+            return this;
         }
+
         //public void HardSetState(bool value) i hate you cyconi
         //{
         //    shouldInvoke = false;
@@ -79,11 +86,11 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
         //    Listener?.Invoke(value);
         //    ToggleCompnt.onValueChanged.Invoke(value);
         //}
-        public QMCToggle(QMCGroup group, string text, Action<bool> stateChange, bool defaultState = false, string tooltip = "", bool separator = false)
-            : this(group.GetTransform().Find("QM_Settings_Panel/VerticalLayoutGroup").transform, text, stateChange, defaultState, tooltip, separator)
+        public QMCToggle(QMCGroup group, string text, string tooltip,  Action<bool> stateChange, bool defaultState = false, bool separator = false)
+            : this(group.GetTransform().Find("QM_Settings_Panel/VerticalLayoutGroup").transform, text, tooltip, stateChange, defaultState, separator)
         { }
-        public QMCToggle(CollapsibleButtonGroup buttonGroup, string text, Action<bool> stateChange, bool defaultState = false, string tooltip = "", bool separator = false)
-            : this(buttonGroup.QMCParent, text, stateChange, defaultState, tooltip, separator)
+        public QMCToggle(CollapsibleButtonGroup buttonGroup, string text, string tooltip, Action<bool> stateChange, bool defaultState = false, bool separator = false)
+            : this(buttonGroup.QMCParent, text, tooltip, stateChange, defaultState, separator)
         { }
     }
 }
