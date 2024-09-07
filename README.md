@@ -30,10 +30,15 @@ This extension comes with:
 ## Update V2.1.0
 - Added support for chaining with the following controls:
 > QMCFuncButton
+
 > QMCSelector
+
 > QMCSlider
+
 > QMCTitle
+
 > QMCToggle
+
 - Fixed sliders and added support for setting values on the slider through a config (Thanks Cyconi)
 - Other small fixes that aren't all that important
 - Started work on a multitoggle system for QMCToggles
