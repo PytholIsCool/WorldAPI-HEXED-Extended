@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +22,6 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items //this control is gonna be exclus
     public class QMCSlider : Root
     {
         //slider
-        public Action<float, QMCSlider> Listener { get; set; }
         public TextMeshProUGUI TextMeshPro { get; private set; }
         private Transform body { get; set; }
         public Transform valDisplay { get; private set; }
@@ -38,14 +37,16 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items //this control is gonna be exclus
         private static Vector3 onPos = new(93, 0, 0), offPos = new(30, 0, 0);
         //reset button
         public Transform ResetButton { get; private set; }
-        public QMCSlider(QMCGroup group, string text, string tooltip, Action<float, QMCSlider> listener, float defaultValue = 0f, float minValue = 0f, float maxValue = 100f, bool isDecimal = false, string ending = "%", bool separator = false)
+        public QMCSlider(Transform parent, string text, string tooltip, Action<float, QMCSlider> listener, float defaultValue = 0f, float minValue = 0f, float maxValue = 100f, bool isDecimal = false, string ending = "%", bool separator = false)
         {
             if (!APIBase.IsReady())
                 throw new NullReferenceException("Object Search had FAILED!");
 
+            DefaultValue = defaultValue;
+
             var figures = "0";
 
-            transform = Object.Instantiate(APIBase.Slider, group.GetTransform().Find("QM_Settings_Panel/VerticalLayoutGroup").transform);
+            transform = Object.Instantiate(APIBase.Slider, parent);
             gameObject = transform.gameObject;
             gameObject.name = text;
 
@@ -58,28 +59,21 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items //this control is gonna be exclus
             (slider = gameObject.transform.Find("RightItemContainer/Slider"))
                 .GetComponent<VRC.UI.Elements.Controls.ToolTip>()._localizableString = tooltip.Localize();
 
-            valDisplay = slider.parent.Find("Text_MM_H3");
+            //working up to here
 
             snapSlider = slider.GetComponent<SnapSliderExtendedCallbacks>();
             snapSlider.field_Private_UnityEvent_0 = null;
             snapSlider.onValueChanged = new();
             snapSlider.minValue = minValue;
             snapSlider.maxValue = maxValue;
-            DefaultValue = defaultValue = snapSlider.value = defaultValue;
+            snapSlider.value = defaultValue;
 
-            Listener = (value, slider) =>
-            {
-                if (ToggleValue == true)
-                {
-                    listener.Invoke(value, this);
-                }
-            };
+            snapSlider.onValueChanged.AddListener(new Action<float>((va) => listener.Invoke(va, this)));
 
-            snapSlider.onValueChanged.AddListener(new Action<float>((value) => Listener?.Invoke(value, this)));
-
+            //this is working too
             if (separator != false)
             {
-                GameObject seB = Object.Instantiate(APIBase.QMCarouselSeparator, group.GetTransform().Find("QM_Settings_Panel/VerticalLayoutGroup").transform);
+                GameObject seB = Object.Instantiate(APIBase.QMCarouselSeparator, parent);
                 seB.name = "Separator";
             }
             if (isDecimal != false)
@@ -87,6 +81,7 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items //this control is gonna be exclus
                 figures = "0.0";
             }
 
+            valDisplay = slider.parent.Find("Text_MM_H3");
             var perst = valDisplay.GetComponent<TextMeshProUGUI>();
             perst.gameObject.active = true;
             snapSlider.onValueChanged.AddListener(new Action<float>((va) => perst.text = va.ToString(figures) + ending));
@@ -94,7 +89,7 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items //this control is gonna be exclus
 
             gameObject.GetComponent<SettingComponent>().enabled = false;
         }
-        public void AddResetButton()
+        public QMCSlider AddResetButton(float value = -0)
         {
             ResetButton = this.transform.Find("RightItemContainer/Button");
             ResetButton.gameObject.SetActive(true);
@@ -102,82 +97,121 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items //this control is gonna be exclus
             ResetButton.GetOrAddComponent<CanvasGroup>().alpha = 1f;
 
             var button = ResetButton.GetComponent<Button>();
-            button.onClick.AddListener(new Action(() => ResetValue()));
+            button.onClick.AddListener(new Action(() => ResetValue(value)));
+
+            return this;
         }
 
-        private void ResetValue()
+        private void ResetValue(float value)
         {
-            if (ToggleValue == true)
+            Transform toggleButton = this.transform.Find("RightItemContainer/Cell_MM_ToggleSwitch");
+            Transform muteButton = this.transform.Find("RightItemContainer/Cell_MM_ToggleButton");
+
+            bool isToggleSwitchActive = toggleButton != null && toggleButton.gameObject.activeSelf;
+            bool isToggleButtonActive = muteButton != null && muteButton.gameObject.activeSelf;
+
+            if (isToggleSwitchActive || isToggleButtonActive)
             {
-                snapSlider.value = DefaultValue;
+                if (ToggleValue == true)
+                    snapSlider.value = (value != -0) ? value : DefaultValue;
+            }
+            else
+            {
+                snapSlider.value = (value != -0) ? value : DefaultValue;
             }
         }
 
-        public void AddMuteButton(Action<bool> stateChange, bool defaultState = true)
+        public QMCSlider AddMuteButton(Action<bool> stateChange, bool defaultState = true)
         {
-            var muteButton = this.transform.Find("RightItemContainer/Cell_MM_ToggleButton");
-            muteButton.gameObject.SetActive(true);
-            muteButton.SetSiblingIndex(4);
+            Transform toggleButton = this.transform.Find("RightItemContainer/Cell_MM_ToggleSwitch");
+            bool isToggleSwitchActive = toggleButton != null && toggleButton.gameObject.activeSelf;
 
-            ToggleValue = defaultState;
-
-            ToggleCompnt = muteButton.GetComponent<Toggle>();
-            ToggleListener = stateChange;
-            ToggleCompnt.onValueChanged = new();
-            ToggleCompnt.isOn = defaultState;
-
-            SetVisualComponents(defaultState);
-
-            ToggleCompnt.onValueChanged.AddListener(new Action<bool>((val) =>
+            if (!isToggleSwitchActive)
             {
-                if (shouldInvoke)
-                    APIBase.SafelyInvolk(val, ToggleListener, "SliderMuteToggle");
-                APIBase.Events.onQMCSliderToggleValChange?.Invoke(this, val);
-                ToggleValue = val;
-                SetVisualComponents(val);
-            }));
+                var muteButton = this.transform.Find("RightItemContainer/Cell_MM_ToggleButton");
+                muteButton.gameObject.SetActive(true);
+                muteButton.SetSiblingIndex(4);
+
+                ToggleValue = defaultState;
+
+                ToggleCompnt = muteButton.GetComponent<Toggle>();
+                ToggleListener = stateChange;
+                ToggleCompnt.onValueChanged = new();
+                ToggleCompnt.isOn = defaultState;
+
+                SetVisualComponents(defaultState);
+
+                ToggleCompnt.onValueChanged.AddListener(new Action<bool>((val) =>
+                {
+                    if (shouldInvoke)
+                        APIBase.SafelyInvolk(val, ToggleListener, "SliderMuteToggle");
+                    APIBase.Events.onQMCSliderToggleValChange?.Invoke(this, val);
+                    ToggleValue = val;
+                    SetVisualComponents(val);
+                }));
+            }
+            else
+            {
+                throw new Exception("MuteButton could not be added to the following object: \n" + this.ToString() + "\n Don't add a MuteButton and a Toggle to the same slider.");
+            }
+
+            return this;
         }
 
-        public void AddToggle(Action<bool> stateChange, bool defaultState = true)
+        public QMCSlider AddToggle(Action<bool> stateChange, bool defaultState = true)
         {
-            var toggleButton = this.transform.Find("RightItemContainer/Cell_MM_ToggleSwitch");
-            toggleButton.gameObject.SetActive(true);
-            toggleButton.SetSiblingIndex(4);
+            Transform muteButton = this.transform.Find("RightItemContainer/Cell_MM_ToggleButton");
+            bool isToggleButtonActive = muteButton != null && muteButton.gameObject.activeSelf;
 
-            ToggleValue = defaultState;
-
-            var button = toggleButton.Find("Cell_MM_OnOffSwitch").GetComponent<RadioButton>();
-            button.Method_Public_Void_Boolean_0(defaultState);
-
-            (Handle = button._handle)
-                .transform.localPosition = defaultState ? onPos : offPos;
-
-            ToggleCompnt = toggleButton.transform.GetComponent<Toggle>();
-            ToggleListener = stateChange;
-
-            ToggleCompnt.onValueChanged = new Toggle.ToggleEvent();
-            ToggleCompnt.isOn = defaultState;
-
-            SetVisualComponents(defaultState);
-
-            ToggleCompnt.onValueChanged.AddListener(new Action<bool>((val) =>
+            if (!isToggleButtonActive)
             {
-                if (shouldInvoke)
-                    APIBase.SafelyInvolk(val, ToggleListener, "SliderToggle");
-                APIBase.Events.onQMCSliderToggleValChange?.Invoke(this, val);
-                button.Method_Public_Void_Boolean_0(val);
-                Handle.localPosition = val ? onPos : offPos;
-                ToggleValue = val;
-                SetVisualComponents(val);
-            }));
+                var toggleButton = this.transform.Find("RightItemContainer/Cell_MM_ToggleSwitch");
+                toggleButton.gameObject.SetActive(true);
+                toggleButton.SetSiblingIndex(4);
 
-            toggleButton.gameObject.GetComponent<UiToggleTooltip>()._localizableString = "Enable / disable this setting".Localize();
+                ToggleValue = defaultState;
+
+                var button = toggleButton.Find("Cell_MM_OnOffSwitch").GetComponent<RadioButton>();
+                button.Method_Public_Void_Boolean_0(defaultState);
+
+                (Handle = button._handle)
+                    .transform.localPosition = defaultState ? onPos : offPos;
+
+                ToggleCompnt = toggleButton.transform.GetComponent<Toggle>();
+                ToggleListener = stateChange;
+
+                ToggleCompnt.onValueChanged = new Toggle.ToggleEvent();
+                ToggleCompnt.isOn = defaultState;
+
+                SetVisualComponents(defaultState);
+
+                ToggleCompnt.onValueChanged.AddListener(new Action<bool>((val) =>
+                {
+                    if (shouldInvoke)
+                        APIBase.SafelyInvolk(val, ToggleListener, "SliderToggle");
+                    APIBase.Events.onQMCSliderToggleValChange?.Invoke(this, val);
+                    button.Method_Public_Void_Boolean_0(val);
+                    Handle.localPosition = val ? onPos : offPos;
+                    ToggleValue = val;
+                    SetVisualComponents(val);
+                }));
+
+                toggleButton.gameObject.GetComponent<UiToggleTooltip>()._localizableString = "Enable / disable this setting".Localize();
+            }
+            else
+            {
+                throw new Exception("Toggle could not be added to the following object: \n" + this.ToString() + "\n Don't add a Toggle and a MuteButton to the same slider.");
+            }
+
+            return this;
         }
-        public void SoftSetState(bool value)
+        public QMCSlider SoftSetState(bool value)
         {
             shouldInvoke = false;
             ToggleCompnt.isOn = value;
             shouldInvoke = true;
+
+            return this;
         }
         private void SetVisualComponents(bool defaultState)
         {
@@ -208,5 +242,9 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items //this control is gonna be exclus
                 }
             }
         }
+
+        public QMCSlider(QMCGroup group, string text, string tooltip, Action<float, QMCSlider> listener, float defaultValue = 0f, float minValue = 0f, float maxValue = 100f, bool isDecimal = false, string ending = "%", bool separator = false)
+            : this(group.GetTransform().Find("QM_Settings_Panel/VerticalLayoutGroup"), text, tooltip, listener, defaultValue, minValue, maxValue, isDecimal, ending, separator) 
+        { }
     }
 }
