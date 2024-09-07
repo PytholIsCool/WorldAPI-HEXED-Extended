@@ -27,17 +27,29 @@ This extension comes with:
 ## Update V2.0.1
 - Improved button component/object formatting and centering
 
+## Update V2.1.0
+- Added support for chaining with the following controls:
+> QMCFuncButton
+> QMCSelector
+> QMCSlider
+> QMCTitle
+> QMCToggle
+- Fixed sliders and added support for setting values on the slider through a config (Thanks Cyconi)
+- Other small fixes that aren't all that important
+- Started work on a multitoggle system for QMCToggles
   ## Known Bug(s)
 - QMCSlider Reset Button Styling On Init Not Corrosponding With Slider Toggle and Slider Mute Button State Defaults
 - Applying a QMC-Type Control to a collapsible button group will put the control at the above all other controls by default
 
 # Credits
 - Cyconi
-> Small bug fixes here and there (such as parent reference changes, ect), text placement and centering fixes and PLENTY of requests
+> Good amount of bug fixes here and there (such as parent reference changes, ect), text placement and centering fixes and PLENTY of requests
 - Hacker_1254
 > Creator of WorldAPI
 - Psychotic
 > Requests here and there
+- Voids
+> Several requests, suggestions and bug reports
 - SlyFoox/Salad/HisHaven
 > Kept me sane (I love you)
 
