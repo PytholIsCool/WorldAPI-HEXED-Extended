@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -50,7 +50,7 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
             buttonRight.onClick.AddListener(new Action(() => ScrollRight()));
         }
 
-        public void AddSetting(string name, string tooltip, Action listener)
+        public QMCSelector AddSetting(string name, string tooltip, Action listener)
         {
             settings.Add(new Setting { Name = name, Tooltip = tooltip, Listener = listener });
 
@@ -58,6 +58,8 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
             {
                 UpdateDisplayedSetting(0);
             }
+            
+            return this;
         }
 
         private void ScrollLeft()
@@ -93,8 +95,6 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
             public string Tooltip { get; set; }
             public Action Listener { get; set; }
         }
-
-        // Alternate constructors for different contexts
         public QMCSelector(QMCGroup group, string text, string containerTooltip, bool separator = false)
             : this(group.GetTransform().Find("QM_Settings_Panel/VerticalLayoutGroup").transform, text, containerTooltip, separator)
         { }
