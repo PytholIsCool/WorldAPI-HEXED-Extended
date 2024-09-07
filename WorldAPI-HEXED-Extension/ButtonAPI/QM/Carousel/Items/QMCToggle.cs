@@ -23,7 +23,7 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
         public Transform AdditionalToggle { get; set; } //this will be used later on...
         public Transform Handle { get; private set; }
         public Transform SecondaryHandle { get; private set; } //this will be used later on...
-
+//oh also, when i say that those will be used later on, i mean ill be deleting those and doing something else thats way more optimised!
         private RadioButton toggleSwitch;
         private bool shouldInvoke = true;
 
