@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,23 +17,44 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
 {
     public class QMCFuncButton : ExtentedControl //this control was extra difficult for no good fucking reason
     {
-        public static Button AdditionalButton { get; private set; }
-        public QMCFuncButton(Transform parent, string text, string tooltip, Action listener)
+        public static Transform ButtonParent {  get; private set; }
+        public static Transform leftPar {  get; private set; }
+        public static Transform rightPar { get; private set; }
+        public QMCFuncButton(Transform parent, string text, string tooltip, Action listener, bool rightContainer = false, bool separator = false, Sprite sprite = null)
         {
             if (!APIBase.IsReady())
                 throw new NullReferenceException("Object Search had FAILED!");
             transform = Object.Instantiate(APIBase.QMCarouselFuncButtonTemplate, parent).transform;
             gameObject = transform.gameObject;
             gameObject.name = text + "_ControlContainer";
-            transform.Find("LeftItemContainer").gameObject.DestroyChildren();
+            leftPar = transform.Find("LeftItemContainer");
+            leftPar.gameObject.DestroyChildren();
+            rightPar = transform.Find("RightItemContainer");
+            rightPar.gameObject.DestroyChildren();
+
+            ButtonParent = rightContainer ? rightPar : leftPar;
+
             transform.Find("TitleMainContainer").gameObject.SetActive(false);
 
-            Transform button = Object.Instantiate(APIBase.QMCarouselFuncButtonTemplate.transform.Find("LeftItemContainer/Button (1)"), transform.Find("LeftItemContainer"));
+            Transform button = Object.Instantiate(APIBase.QMCarouselFuncButtonTemplate.transform.Find("LeftItemContainer/Button (1)"), ButtonParent);
             button.name = text;
+
+            if(sprite != null)
+            {
+                var Tsprite = button.Find("Icon").GetComponent<Image>();
+                Tsprite.overrideSprite = sprite;
+                Tsprite.gameObject.SetActive(true);
+            }
 
             TMProCompnt = button.Find("Text_MM_H3").GetComponent<TextMeshProUGUI>();
             TMProCompnt.text = text;
             TMProCompnt.richText = true;
+
+            if (separator != false)
+            {
+                GameObject seB = Object.Instantiate(APIBase.QMCarouselSeparator, parent);
+                seB.name = "Separator";
+            }
 
             button.GetComponent<ToolTip>()._localizableString = tooltip.Localize();
 
@@ -42,11 +63,23 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
             ButtonCompnt.onClick.AddListener(listener);
 
             button.gameObject.SetActive(true);
+
+            ButtonParent = null;
+            ButtonCompnt = null;
         }
-        public void AddButton(string text, string tooltip, Action listener)
+        public QMCFuncButton AddButton(string text, string tooltip, Action listener, bool rightContainer = false, Sprite sprite = null)
         {
-            Transform newButton = Object.Instantiate(APIBase.QMCarouselFuncButtonTemplate.transform.Find("LeftItemContainer/Button (1)"), this.transform.Find("LeftItemContainer"));
+            ButtonParent = rightContainer ? rightPar : leftPar;
+
+            Transform newButton = Object.Instantiate(APIBase.QMCarouselFuncButtonTemplate.transform.Find("LeftItemContainer/Button (1)"), ButtonParent);
             newButton.name = text;
+
+            if (sprite != null)
+            {
+                var Tsprite = newButton.Find("Icon").GetComponent<Image>();
+                Tsprite.overrideSprite = sprite;
+                Tsprite.gameObject.SetActive(true);
+            }
 
             TMProCompnt = newButton.Find("Text_MM_H3").GetComponent<TextMeshProUGUI>();
             TMProCompnt.text = text;
@@ -54,17 +87,21 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
 
             newButton.GetComponent<ToolTip>()._localizableString = tooltip.Localize();
 
-            AdditionalButton = newButton.GetComponent<Button>();
-            AdditionalButton.onClick = new();
-            AdditionalButton.onClick.AddListener(listener);
+            ButtonCompnt = newButton.GetComponent<Button>();
+            ButtonCompnt.onClick = new();
+            ButtonCompnt.onClick.AddListener(listener);
 
             newButton.gameObject.SetActive(true);
+
+            ButtonParent = null;
+            ButtonCompnt = null;
+            return this;
         }
-        public QMCFuncButton(QMCGroup group, string text, string tooltip, Action listener)
-            : this(group.GetTransform().Find("QM_Settings_Panel/VerticalLayoutGroup").transform, text, tooltip, listener)
+        public QMCFuncButton(QMCGroup group, string text, string tooltip, Action listener, bool rightContainer = false, bool separator = false, Sprite sprite = null)
+            : this(group.GetTransform().Find("QM_Settings_Panel/VerticalLayoutGroup").transform, text, tooltip, listener, rightContainer, separator, sprite)
         { }
-        public QMCFuncButton(CollapsibleButtonGroup buttonGroup, string text, string tooltip, Action listener)
-            : this(buttonGroup.QMCParent, text, tooltip, listener)
+        public QMCFuncButton(CollapsibleButtonGroup buttonGroup, string text, string tooltip, Action listener, bool rightContainer = false, bool separator = false, Sprite sprite = null)
+            : this(buttonGroup.QMCParent, text, tooltip, listener, rightContainer, separator, sprite)
         { }
     }
 }
