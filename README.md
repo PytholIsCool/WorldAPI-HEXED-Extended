@@ -52,6 +52,7 @@ THREE UPDATES??!?!?!!?!??!?/1/
 anyways, heres the changelog:
 - Added the brand new QMCFuncToggle control!
 - Changed around the QMCFuncButton and QMCFuncToggle method names for more familiarity
+- QMCToggle tooltip argument was moved to come before the listener
 
 ## Update 4.0.1
 FOUR?!??!?!?!??
