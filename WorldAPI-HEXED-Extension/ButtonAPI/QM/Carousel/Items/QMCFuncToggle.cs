@@ -45,9 +45,15 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
             Transform newToggle = Object.Instantiate(APIBase.QMCarouselFuncButtonTemplate.transform.Find("LeftItemContainer/Button (1)"), ButtonParent);
             newToggle.name = text + "_FunctionToggle";
 
-            Image toggleSprite = newToggle.Find("Icon").GetComponent<Image>();
-            Sprite onSpriteLocal = onSprite ?? APIBase.OnSprite;
-            Sprite offSpriteLocal = offSprite ?? APIBase.OffSprite;
+            GameObject OnIconObj = Object.Instantiate(newToggle.Find("Icon").gameObject, newToggle);
+            OnIconObj.name = "OnIcon";
+            OnIconObj.GetComponent<Image>().sprite = onSprite ?? APIBase.OnSprite;
+
+            GameObject OffIconObj = Object.Instantiate(newToggle.Find("Icon").gameObject, newToggle);
+            OffIconObj.name = "OffIcon";
+            OffIconObj.GetComponent<Image>().sprite = offSprite ?? APIBase.OffSprite;
+
+            newToggle.Find("Icon").gameObject.SetActive(false);
 
             TMProCompnt = newToggle.Find("Text_MM_H3").GetComponent<TextMeshProUGUI>();
             TMProCompnt.text = text;
@@ -62,15 +68,17 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
             newToggle.GetComponent<ToolTip>()._localizableString = tooltip.Localize();
 
             bool isToggledLocal = defaultState;
-            toggleSprite.overrideSprite = isToggledLocal ? onSpriteLocal : offSpriteLocal;
+            OnIconObj.SetActive(isToggledLocal);
+            OffIconObj.SetActive(!isToggledLocal);
 
             Button buttonComponent = newToggle.GetComponent<Button>();
             buttonComponent.onClick = new();
-
             buttonComponent.onClick.AddListener(new Action(() =>
             {
                 isToggledLocal = !isToggledLocal;
-                toggleSprite.overrideSprite = isToggledLocal ? onSpriteLocal : offSpriteLocal;
+
+                OnIconObj.SetActive(isToggledLocal);
+                OffIconObj.SetActive(!isToggledLocal);
 
                 if (shouldInvoke)
                 {
@@ -79,9 +87,8 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
             }));
 
             newToggle.gameObject.SetActive(true);
-            toggleSprite.gameObject.SetActive(true);
         }
-        public QMCFuncToggle AddButton(string text, Action listener, string tooltip = "", bool rightContainer = false, Sprite sprite = null)
+        public QMCFuncToggle AddButton(string text, string tooltip, Action listener, bool rightContainer = false, Sprite sprite = null)
         {
             ButtonParent = rightContainer ? rightPar : leftPar;
 
@@ -116,9 +123,15 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
             Transform newToggle = Object.Instantiate(APIBase.QMCarouselFuncButtonTemplate.transform.Find("LeftItemContainer/Button (1)"), ButtonParent);
             newToggle.name = text + "_FunctionToggle";
 
-            Image toggleSprite = newToggle.Find("Icon").GetComponent<Image>();
-            Sprite onSpriteLocal = onSprite ?? APIBase.OnSprite;
-            Sprite offSpriteLocal = offSprite ?? APIBase.OffSprite;
+            GameObject OnIconObj = Object.Instantiate(newToggle.Find("Icon").gameObject, newToggle);
+            OnIconObj.name = "OnIcon";
+            OnIconObj.GetComponent<Image>().sprite = onSprite ?? APIBase.OnSprite;
+
+            GameObject OffIconObj = Object.Instantiate(newToggle.Find("Icon").gameObject, newToggle);
+            OffIconObj.name = "OffIcon";
+            OffIconObj.GetComponent<Image>().sprite = offSprite ?? APIBase.OffSprite;
+
+            newToggle.Find("Icon").gameObject.SetActive(false);
 
             TMProCompnt = newToggle.Find("Text_MM_H3").GetComponent<TextMeshProUGUI>();
             TMProCompnt.text = text;
@@ -127,15 +140,17 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
             newToggle.GetComponent<ToolTip>()._localizableString = tooltip.Localize();
 
             bool isToggledLocal = defaultState;
-            toggleSprite.overrideSprite = isToggledLocal ? onSpriteLocal : offSpriteLocal;
+            OnIconObj.SetActive(isToggledLocal);
+            OffIconObj.SetActive(!isToggledLocal);
 
             Button buttonComponent = newToggle.GetComponent<Button>();
             buttonComponent.onClick = new();
-
             buttonComponent.onClick.AddListener(new Action(() =>
             {
                 isToggledLocal = !isToggledLocal;
-                toggleSprite.overrideSprite = isToggledLocal ? onSpriteLocal : offSpriteLocal;
+
+                OnIconObj.SetActive(isToggledLocal);
+                OffIconObj.SetActive(!isToggledLocal);
 
                 if (shouldInvoke)
                 {
@@ -144,7 +159,6 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
             }));
 
             newToggle.gameObject.SetActive(true);
-            toggleSprite.gameObject.SetActive(true);
 
             return this;
         }
