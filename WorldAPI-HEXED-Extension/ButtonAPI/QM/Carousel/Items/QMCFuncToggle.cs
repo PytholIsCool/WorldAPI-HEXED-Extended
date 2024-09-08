@@ -25,7 +25,7 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
         public static Sprite OnSprite { get; private set; }
         public static Sprite OffSprite { get; private set; }
         private bool shouldInvoke = true;
-        public QMCFuncToggle(Transform parent, string text, string tooltip, Action<bool> listener, bool rightContainer = false, bool defaultState = false, bool separator = false, Sprite onSprite = null, Sprite offSprite = null)
+        public QMCFuncToggle(Transform parent, string text, Action<bool> listener, string tooltip = "", bool rightContainer = false, bool defaultState = false, bool separator = false, Sprite onSprite = null, Sprite offSprite = null)
         {
             if (!APIBase.IsReady())
                 throw new NullReferenceException("Object Search had FAILED!");
@@ -71,13 +71,13 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
 
             isToggled = defaultState;
 
-            ToggleSprite.overrideSprite = isToggled ? OffSprite : OnSprite;
+            ToggleSprite.overrideSprite = isToggled ? OnSprite : OffSprite;
 
             ButtonCompnt.onClick.AddListener(new Action(() =>
             {
                 isToggled = !isToggled;
 
-                ToggleSprite.overrideSprite = isToggled ? OffSprite : OnSprite;
+                ToggleSprite.overrideSprite = isToggled ? OnSprite : OffSprite;
 
                 if (shouldInvoke)
                     APIBase.SafelyInvolk(isToggled, Listener, text);
@@ -86,7 +86,7 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
             newToggle.gameObject.SetActive(true);
             ToggleSprite.gameObject.SetActive(true);
         }
-        public QMCFuncToggle AddButton(string text, string tooltip, Action listener, bool rightContainer = false, Sprite sprite = null)
+        public QMCFuncToggle AddButton(string text, Action listener, string tooltip = "", bool rightContainer = false, Sprite sprite = null)
         {
             ButtonParent = rightContainer ? rightPar : leftPar;
 
@@ -143,13 +143,13 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
 
             isToggled = defaultState;
 
-            ToggleSprite.overrideSprite = isToggled ? OffSprite : OnSprite;
+            ToggleSprite.overrideSprite = isToggled ? OnSprite : OffSprite;
 
             ButtonCompnt.onClick.AddListener(new Action(() =>
             {
                 isToggled = !isToggled;
 
-                ToggleSprite.overrideSprite = isToggled ? OffSprite : OnSprite;
+                ToggleSprite.overrideSprite = isToggled ? OnSprite : OffSprite;
 
                 if (shouldInvoke)
                     APIBase.SafelyInvolk(isToggled, Listener, text);
@@ -166,17 +166,17 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
             if (isToggled != state)
             {
                 isToggled = state;
-                ToggleSprite.sprite = isToggled ? OnSprite : OffSprite;
+                ToggleSprite.overrideSprite = isToggled ? OnSprite : OffSprite;
 
                 if (shouldInvoke)
                     APIBase.SafelyInvolk(isToggled, Listener, "SoftSet");
             }
         }
-        public QMCFuncToggle(QMCGroup group, string text, string tooltip, Action<bool> listener, bool rightContainer = false, bool defaultState = false, bool separator = false, Sprite onSprite = null, Sprite offSprite = null)
-            : this(group.GetTransform().Find("QM_Settings_Panel/VerticalLayoutGroup").transform, text, tooltip, listener, rightContainer, defaultState, separator, onSprite, offSprite) 
+        public QMCFuncToggle(QMCGroup group, string text, Action<bool> listener, string tooltip = "", bool rightContainer = false, bool defaultState = false, bool separator = false, Sprite onSprite = null, Sprite offSprite = null)
+            : this(group.GetTransform().Find("QM_Settings_Panel/VerticalLayoutGroup").transform, text, listener, tooltip, rightContainer, defaultState, separator, onSprite, offSprite) 
         { }
-        public QMCFuncToggle(CollapsibleButtonGroup buttonGroup, string text, string tooltip, Action<bool> listener, bool rightContainer = false, bool defaultState = false, bool separator = false, Sprite onSprite = null, Sprite offSprite = null)
-            : this(buttonGroup.QMCParent, text, tooltip, listener, rightContainer, defaultState, separator, onSprite, offSprite) 
+        public QMCFuncToggle(CollapsibleButtonGroup buttonGroup, string text, Action<bool> listener, string tooltip = "", bool rightContainer = false, bool defaultState = false, bool separator = false, Sprite onSprite = null, Sprite offSprite = null)
+            : this(buttonGroup.QMCParent, text, listener, tooltip, rightContainer, defaultState, separator, onSprite, offSprite) 
         { }
     }
 }

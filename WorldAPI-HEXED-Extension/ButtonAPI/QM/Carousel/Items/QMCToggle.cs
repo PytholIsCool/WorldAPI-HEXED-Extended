@@ -28,7 +28,7 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
         private bool shouldInvoke = true;
 
         private static Vector3 onPos = new(93, 0, 0), offPos = new(30, 0, 0);
-        public QMCToggle(Transform parent, string text, string tooltip, Action<bool> stateChange, bool defaultState = false, bool separator = false)
+        public QMCToggle(Transform parent, string text, Action<bool> stateChange, string tooltip = "", bool defaultState = false, bool separator = false)
         {
             if (!APIBase.IsReady())
                 throw new NullReferenceException("Object Search had FAILED!");
@@ -86,11 +86,11 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
         //    Listener?.Invoke(value);
         //    ToggleCompnt.onValueChanged.Invoke(value);
         //}
-        public QMCToggle(QMCGroup group, string text, string tooltip,  Action<bool> stateChange, bool defaultState = false, bool separator = false)
-            : this(group.GetTransform().Find("QM_Settings_Panel/VerticalLayoutGroup").transform, text, tooltip, stateChange, defaultState, separator)
+        public QMCToggle(QMCGroup group, string text, Action<bool> stateChange, string tooltip = "", bool defaultState = false, bool separator = false)
+            : this(group.GetTransform().Find("QM_Settings_Panel/VerticalLayoutGroup").transform, text, stateChange, tooltip, defaultState, separator)
         { }
         public QMCToggle(CollapsibleButtonGroup buttonGroup, string text, string tooltip, Action<bool> stateChange, bool defaultState = false, bool separator = false)
-            : this(buttonGroup.QMCParent, text, tooltip, stateChange, defaultState, separator)
+            : this(buttonGroup.QMCParent, text, stateChange, tooltip, defaultState, separator)
         { }
     }
 }

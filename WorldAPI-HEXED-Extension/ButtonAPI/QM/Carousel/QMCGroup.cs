@@ -44,9 +44,9 @@ namespace WorldAPI.ButtonAPI.QM.Carousel
         public QMCGroup(WorldPage page, string text, TextAnchor ButtonAlignment = TextAnchor.UpperLeft) : this(page.MenuContents, text, ButtonAlignment)
         { }
 
-        public QMCToggle AddQMCToggle(string text, string tooltip, Action<bool> stateChange, bool defaultState = false, bool separator = false)
+        public QMCToggle AddQMCToggle(string text, Action<bool> stateChange, string tooltip = "", bool defaultState = false, bool separator = false)
         {
-            return new QMCToggle(this, text, tooltip, stateChange, defaultState, separator);
+            return new QMCToggle(this, text, stateChange, tooltip, defaultState, separator);
         }
         public QMCSlider AddQMCSlider(string text, string tooltip, Action<float, QMCSlider> listener, float defaultValue = 0f, float minValue = 0f, float maxValue = 100f, bool isDecimal = false, string ending = "%", bool separator = false)
         {
@@ -60,9 +60,9 @@ namespace WorldAPI.ButtonAPI.QM.Carousel
         {
             return new QMCFuncButton(this, text, tooltip, listener, rightContainer, separator, sprite);
         }
-        public QMCFuncToggle AddQMCFuncToggle(string text, string tooltip, Action<bool> listener, bool rightContainer = false, bool defaultState = false, bool separator = false, Sprite onSprite = null, Sprite offSprite = null)
+        public QMCFuncToggle AddQMCFuncToggle(string text, Action<bool> listener, string tooltip = "", bool rightContainer = false, bool defaultState = false, bool separator = false, Sprite onSprite = null, Sprite offSprite = null)
         {
-            return new QMCFuncToggle(this, text, tooltip, listener, rightContainer, defaultState, separator, onSprite, offSprite);
+            return new QMCFuncToggle(this, text, listener, tooltip, rightContainer, defaultState, separator, onSprite, offSprite);
         }
         public QMCTitle AddQMCTitle(string text, bool separator = false)
         {

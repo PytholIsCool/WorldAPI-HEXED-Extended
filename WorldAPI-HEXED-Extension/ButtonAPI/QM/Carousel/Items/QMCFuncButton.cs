@@ -104,7 +104,7 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
             ButtonCompnt = null;
             return this;
         }
-        public QMCFuncButton AddToggle(string text, string tooltip, Action<bool> listener, bool rightContainer = false, bool defaultState = false, Sprite onSprite = null, Sprite offSprite = null)
+        public QMCFuncButton AddToggle(string text, Action<bool> listener, string tooltip = "", bool rightContainer = false, bool defaultState = false, Sprite onSprite = null, Sprite offSprite = null)
         {
             ButtonParent = rightContainer ? leftPar : rightPar;
 
@@ -131,13 +131,13 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
 
             isToggled = defaultState;
 
-            ToggleSprite.overrideSprite = isToggled ? OffSprite : OnSprite;
+            ToggleSprite.overrideSprite = isToggled ? OnSprite : OffSprite; 
 
             ButtonCompnt.onClick.AddListener(new Action(() =>
             {
                 isToggled = !isToggled;
 
-                ToggleSprite.overrideSprite = isToggled ? OffSprite : OnSprite;
+                ToggleSprite.overrideSprite = isToggled ? OnSprite : OffSprite;
 
                 if (shouldInvoke)
                     APIBase.SafelyInvolk(isToggled, Listener, text);
