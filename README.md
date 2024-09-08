@@ -66,10 +66,6 @@ five...
 six T~T
 - fixed the sprite setting stuff (more like tweaked it due to majority vote)
 
-  ## Known Bug(s)
-- QMCSlider Reset Button Styling On Init Not Corrosponding With Slider Toggle and Slider Mute Button State Defaults
-- Applying a QMC-Type Control to a collapsible button group will put the control at the above all other controls by default
-
 ## Update 4.1.0
 - Fixed any and all controls involving the QMCFuncButton and QMCFuncToggle controls
 
@@ -84,6 +80,12 @@ six T~T
 
 This build is confirmed to be safe.
 Thank you voids for your patience and I'm sorry for the trouble
+
+
+  ## Known Bug(s)
+- QMCSlider Reset Button Styling On Init Not Corrosponding With Slider Toggle and Slider Mute Button State Defaults
+- Applying a QMC-Type Control to a collapsible button group will put the control at the above all other controls by default
+
 
 # Credits
 - Cyconi
