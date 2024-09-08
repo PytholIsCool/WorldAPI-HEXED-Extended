@@ -58,6 +58,10 @@ anyways, heres the changelog:
 FOUR?!??!?!?!??
 - Fixed a really stupid mistake that I made. This api version is safe to download
 
+## Update 4.0.2
+five...
+- made the function toggle control ovverride the sprites instead of setting them
+
   ## Known Bug(s)
 - QMCSlider Reset Button Styling On Init Not Corrosponding With Slider Toggle and Slider Mute Button State Defaults
 - Applying a QMC-Type Control to a collapsible button group will put the control at the above all other controls by default
