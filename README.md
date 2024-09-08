@@ -78,9 +78,15 @@ six T~T
 
 > Other stuff
 
-This build is confirmed to be safe.
 Thank you voids for your patience and I'm sorry for the trouble
 
+## Update 4.2.0
+QMCFunc patches:
+- Icon overrides apply properly under all cases
+- listeners all work properly under all cases
+
+thorough testing has been done.
+This build is confirmed to be safe.
 
   ## Known Bug(s)
 - QMCSlider Reset Button Styling On Init Not Corrosponding With Slider Toggle and Slider Mute Button State Defaults
