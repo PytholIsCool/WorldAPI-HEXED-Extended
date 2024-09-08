@@ -12,7 +12,6 @@ using WorldAPI.ButtonAPI.Controls;
 using WorldAPI.ButtonAPI.Extras;
 using WorldAPI.ButtonAPI.Groups;
 using Object = UnityEngine.Object;
-using Console = Serpentine.PyLog.Console;
 using UnityEngine.Playables;
 using WorldAPI.ButtonAPI.Buttons;
 using VRC.UI.Element;
