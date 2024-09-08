@@ -71,13 +71,13 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
 
             isToggled = defaultState;
 
-            ToggleSprite.sprite = isToggled ? OffSprite : OnSprite;
+            ToggleSprite.overrideSprite = isToggled ? OffSprite : OnSprite;
 
             ButtonCompnt.onClick.AddListener(new Action(() =>
             {
                 isToggled = !isToggled;
 
-                ToggleSprite.sprite = isToggled ? OffSprite : OnSprite;
+                ToggleSprite.overrideSprite = isToggled ? OffSprite : OnSprite;
 
                 if (shouldInvoke)
                     APIBase.SafelyInvolk(isToggled, Listener, text);
@@ -143,13 +143,13 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
 
             isToggled = defaultState;
 
-            ToggleSprite.sprite = isToggled ? OffSprite : OnSprite;
+            ToggleSprite.overrideSprite = isToggled ? OffSprite : OnSprite;
 
             ButtonCompnt.onClick.AddListener(new Action(() =>
             {
                 isToggled = !isToggled;
 
-                ToggleSprite.sprite = isToggled ? OffSprite : OnSprite;
+                ToggleSprite.overrideSprite = isToggled ? OffSprite : OnSprite;
 
                 if (shouldInvoke)
                     APIBase.SafelyInvolk(isToggled, Listener, text);
