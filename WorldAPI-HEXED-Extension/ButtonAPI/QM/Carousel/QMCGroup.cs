@@ -60,6 +60,10 @@ namespace WorldAPI.ButtonAPI.QM.Carousel
         {
             return new QMCFuncButton(this, text, tooltip, listener, rightContainer, separator, sprite);
         }
+        public QMCFuncToggle AddQMCFuncToggle(string text, string tooltip, Action<bool> listener, bool rightContainer = false, bool defaultState = false, bool separator = false, Sprite onSprite = null, Sprite offSprite = null)
+        {
+            return new QMCFuncToggle(this, text, tooltip, listener, rightContainer, defaultState, separator, onSprite, offSprite);
+        }
         public QMCTitle AddQMCTitle(string text, bool separator = false)
         {
             return new QMCTitle(this, text, separator);
