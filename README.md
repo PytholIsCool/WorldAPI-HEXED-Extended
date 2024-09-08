@@ -39,6 +39,10 @@ This extension comes with:
 
 > QMCToggle
 
+## Update V3.0.0
+2 Updates in one day???!!???!?!!!
+- Added a brand new **AddToggle** method! This is a completely custom control and is ***not native to VRChat***
+
 - Fixed sliders and added support for setting values on the slider through a config (Thanks Cyconi)
 - Other small fixes that aren't all that important
 - Started work on a multitoggle system for QMCToggles
