@@ -47,6 +47,11 @@ This extension comes with:
 2 Updates in one day???!!???!?!!!
 - Added a brand new **AddToggle** method! This is a completely custom control and is ***not native to VRChat***
 
+## Update 4.0.0
+THREE UPDATES??!?!?!!?!??!?/1/
+anyways, heres the changelog:
+- Added the brand new QMCFuncToggle control!
+
   ## Known Bug(s)
 - QMCSlider Reset Button Styling On Init Not Corrosponding With Slider Toggle and Slider Mute Button State Defaults
 - Applying a QMC-Type Control to a collapsible button group will put the control at the above all other controls by default
