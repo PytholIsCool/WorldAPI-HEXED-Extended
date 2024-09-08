@@ -39,13 +39,14 @@ This extension comes with:
 
 > QMCToggle
 
+- Fixed sliders and added support for setting values on the slider through a config (Thanks Cyconi)
+- Other small fixes that aren't all that important
+- Started work on a multitoggle system for QMCToggles
+
 ## Update V3.0.0
 2 Updates in one day???!!???!?!!!
 - Added a brand new **AddToggle** method! This is a completely custom control and is ***not native to VRChat***
 
-- Fixed sliders and added support for setting values on the slider through a config (Thanks Cyconi)
-- Other small fixes that aren't all that important
-- Started work on a multitoggle system for QMCToggles
   ## Known Bug(s)
 - QMCSlider Reset Button Styling On Init Not Corrosponding With Slider Toggle and Slider Mute Button State Defaults
 - Applying a QMC-Type Control to a collapsible button group will put the control at the above all other controls by default
