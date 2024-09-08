@@ -51,6 +51,7 @@ This extension comes with:
 THREE UPDATES??!?!?!!?!??!?/1/
 anyways, heres the changelog:
 - Added the brand new QMCFuncToggle control!
+- Changed around the QMCFuncButton and QMCFuncToggle method names for more familiarity
 
   ## Known Bug(s)
 - QMCSlider Reset Button Styling On Init Not Corrosponding With Slider Toggle and Slider Mute Button State Defaults
