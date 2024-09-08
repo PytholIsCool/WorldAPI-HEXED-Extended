@@ -75,8 +75,11 @@ six T~T
 
 ### Fixes include:
 > AddToggle now works properly
+
 > Listeners in the QMCToggleControls as well as the AddToggle methods no longer overlap
+
 > Icon overrides apply properly
+
 > Other stuff
 
 This build is confirmed to be safe.
