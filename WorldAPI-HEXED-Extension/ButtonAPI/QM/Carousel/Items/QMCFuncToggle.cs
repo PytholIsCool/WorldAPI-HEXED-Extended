@@ -45,7 +45,6 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
             Transform newToggle = Object.Instantiate(APIBase.QMCarouselFuncButtonTemplate.transform.Find("LeftItemContainer/Button (1)"), ButtonParent);
             newToggle.name = text + "_FunctionToggle";
 
-            // Set the toggle sprite for the new button
             Image toggleSprite = newToggle.Find("Icon").GetComponent<Image>();
             Sprite onSpriteLocal = onSprite ?? APIBase.OnSprite;
             Sprite offSpriteLocal = offSprite ?? APIBase.OffSprite;
@@ -62,14 +61,12 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
 
             newToggle.GetComponent<ToolTip>()._localizableString = tooltip.Localize();
 
-            // Use local variables for isToggled and the listener, not the class-level ones
             bool isToggledLocal = defaultState;
             toggleSprite.overrideSprite = isToggledLocal ? onSpriteLocal : offSpriteLocal;
 
             Button buttonComponent = newToggle.GetComponent<Button>();
             buttonComponent.onClick = new();
 
-            // When clicked, toggle the state and invoke the listener
             buttonComponent.onClick.AddListener(new Action(() =>
             {
                 isToggledLocal = !isToggledLocal;
@@ -119,7 +116,6 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
             Transform newToggle = Object.Instantiate(APIBase.QMCarouselFuncButtonTemplate.transform.Find("LeftItemContainer/Button (1)"), ButtonParent);
             newToggle.name = text + "_FunctionToggle";
 
-            // Set the toggle sprite for the new button
             Image toggleSprite = newToggle.Find("Icon").GetComponent<Image>();
             Sprite onSpriteLocal = onSprite ?? APIBase.OnSprite;
             Sprite offSpriteLocal = offSprite ?? APIBase.OffSprite;
@@ -130,14 +126,12 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
 
             newToggle.GetComponent<ToolTip>()._localizableString = tooltip.Localize();
 
-            // Use local variables for isToggled and the listener, not the class-level ones
             bool isToggledLocal = defaultState;
             toggleSprite.overrideSprite = isToggledLocal ? onSpriteLocal : offSpriteLocal;
 
             Button buttonComponent = newToggle.GetComponent<Button>();
             buttonComponent.onClick = new();
 
-            // When clicked, toggle the state and invoke the listener
             buttonComponent.onClick.AddListener(new Action(() =>
             {
                 isToggledLocal = !isToggledLocal;
