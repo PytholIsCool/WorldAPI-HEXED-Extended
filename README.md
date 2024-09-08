@@ -88,6 +88,9 @@ QMCFunc patches:
 thorough testing has been done.
 This build is confirmed to be safe.
 
+## Update 4.2.1
+- removed console references which i was using for debugging (thanks voids for pointing this out)
+
   ## Known Bug(s)
 - QMCSlider Reset Button Styling On Init Not Corrosponding With Slider Toggle and Slider Mute Button State Defaults
 - Applying a QMC-Type Control to a collapsible button group will put the control at the above all other controls by default
