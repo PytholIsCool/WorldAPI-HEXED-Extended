@@ -53,6 +53,10 @@ anyways, heres the changelog:
 - Added the brand new QMCFuncToggle control!
 - Changed around the QMCFuncButton and QMCFuncToggle method names for more familiarity
 
+## Update 4.0.1
+FOUR?!??!?!?!??
+- Fixed a really stupid mistake that I made. This api version is safe to download
+
   ## Known Bug(s)
 - QMCSlider Reset Button Styling On Init Not Corrosponding With Slider Toggle and Slider Mute Button State Defaults
 - Applying a QMC-Type Control to a collapsible button group will put the control at the above all other controls by default
