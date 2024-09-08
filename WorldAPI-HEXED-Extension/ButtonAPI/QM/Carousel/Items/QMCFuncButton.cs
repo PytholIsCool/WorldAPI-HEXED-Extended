@@ -17,9 +17,15 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
 {
     public class QMCFuncButton : ExtentedControl //this control was extra difficult for no good fucking reason
     {
+        public static Action<bool> Listener {  get; set; }
+        public static bool isToggled { get; private set; }
+        public static Image ToggleSprite;
         public static Transform ButtonParent {  get; private set; }
         public static Transform leftPar {  get; private set; }
         public static Transform rightPar { get; private set; }
+        public static Sprite OnSprite { get; private set; }
+        public static Sprite OffSprite { get; private set; }
+        private bool shouldInvoke = true;
         public QMCFuncButton(Transform parent, string text, string tooltip, Action listener, bool rightContainer = false, bool separator = false, Sprite sprite = null)
         {
             if (!APIBase.IsReady())
@@ -27,6 +33,7 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
             transform = Object.Instantiate(APIBase.QMCarouselFuncButtonTemplate, parent).transform;
             gameObject = transform.gameObject;
             gameObject.name = text + "_ControlContainer";
+
             leftPar = transform.Find("LeftItemContainer");
             leftPar.gameObject.DestroyChildren();
             rightPar = transform.Find("RightItemContainer");
@@ -97,6 +104,63 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
             ButtonCompnt = null;
             return this;
         }
+        public QMCFuncButton AddToggle(string text, string tooltip, Action<bool> listener, bool rightContainer = false, bool defaultState = false, Sprite onSprite = null, Sprite offSprite = null)
+        {
+            ButtonParent = rightContainer ? leftPar : rightPar;
+
+            Transform newToggle = Object.Instantiate(APIBase.QMCarouselFuncButtonTemplate.transform.Find("LeftItemContainer/Button (1)"), ButtonParent);
+            newToggle.name = text + "_FunctionToggle";
+
+            ToggleSprite = newToggle.Find("Icon").GetComponent<Image>();
+            if (onSprite != null) { OnSprite = onSprite; }
+            else { OnSprite = APIBase.OnSprite; }
+
+            if (offSprite != null) { OffSprite = offSprite; }
+            else { OffSprite = APIBase.OffSprite; }
+
+            TMProCompnt = newToggle.Find("Text_MM_H3").GetComponent<TextMeshProUGUI>();
+            TMProCompnt.text = text;
+            TMProCompnt.richText = true;
+
+            newToggle.GetComponent<ToolTip>()._localizableString = tooltip.Localize();
+
+            Listener = listener;
+
+            ButtonCompnt = newToggle.GetComponent<Button>();
+            ButtonCompnt.onClick = new();
+
+            isToggled = defaultState;
+
+            ToggleSprite.sprite = isToggled ? OffSprite : OnSprite;
+
+            ButtonCompnt.onClick.AddListener(new Action(() =>
+            {
+                isToggled = !isToggled;
+
+                ToggleSprite.sprite = isToggled ? OffSprite : OnSprite;
+
+                if (shouldInvoke)
+                    APIBase.SafelyInvolk(isToggled, Listener, text);
+            }));
+
+            newToggle.gameObject.SetActive(true);
+            ToggleSprite.gameObject.SetActive(true);
+
+            return this;
+        }
+
+        public void SoftSetState(bool state)
+        {
+            if (isToggled != state)
+            {
+                isToggled = state;
+                ToggleSprite.sprite = isToggled ? OnSprite : OffSprite;
+
+                if (shouldInvoke)
+                    APIBase.SafelyInvolk(isToggled, Listener, "SoftSet");
+            }
+        }
+
         public QMCFuncButton(QMCGroup group, string text, string tooltip, Action listener, bool rightContainer = false, bool separator = false, Sprite sprite = null)
             : this(group.GetTransform().Find("QM_Settings_Panel/VerticalLayoutGroup").transform, text, tooltip, listener, rightContainer, separator, sprite)
         { }
