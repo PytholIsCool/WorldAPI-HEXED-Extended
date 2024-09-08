@@ -70,6 +70,18 @@ six T~T
 - QMCSlider Reset Button Styling On Init Not Corrosponding With Slider Toggle and Slider Mute Button State Defaults
 - Applying a QMC-Type Control to a collapsible button group will put the control at the above all other controls by default
 
+## Update 4.1.0
+- Fixed any and all controls involving the QMCFuncButton and QMCFuncToggle controls
+
+### Fixes include:
+> AddToggle now works properly
+> Listeners in the QMCToggleControls as well as the AddToggle methods no longer overlap
+> Icon overrides apply properly
+> Other stuff
+
+This build is confirmed to be safe.
+Thank you voids for your patience and I'm sorry for the trouble
+
 # Credits
 - Cyconi
 > Good amount of bug fixes here and there (such as parent reference changes, ect), text placement and centering fixes and PLENTY of requests
