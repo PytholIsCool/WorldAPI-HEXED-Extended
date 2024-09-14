@@ -43,30 +43,30 @@ This extension comes with:
 - Other small fixes that aren't all that important
 - Started work on a multitoggle system for QMCToggles
 
-## Update V3.0.0
+## Update V2.2.0
 2 Updates in one day???!!???!?!!!
 - Added a brand new **AddToggle** method! This is a completely custom control and is ***not native to VRChat***
 
-## Update 4.0.0
+## Update 2.3.0
 THREE UPDATES??!?!?!!?!??!?/1/
 anyways, heres the changelog:
 - Added the brand new QMCFuncToggle control!
 - Changed around the QMCFuncButton and QMCFuncToggle method names for more familiarity
 - QMCToggle tooltip argument was moved to come before the listener
 
-## Update 4.0.1
+## Update 2.3.1
 FOUR?!??!?!?!??
 - Fixed a really stupid mistake that I made. This api version is safe to download
 
-## Update 4.0.2
+## Update 2.3.2
 five...
 - made the function toggle control ovverride the sprites instead of setting them
 
-## Update 4.0.3
+## Update 2.3.3
 six T~T
 - fixed the sprite setting stuff (more like tweaked it due to majority vote)
 
-## Update 4.1.0
+## Update 2.4.0
 - Fixed any and all controls involving the QMCFuncButton and QMCFuncToggle controls
 
 ### Fixes include:
@@ -80,7 +80,7 @@ six T~T
 
 Thank you voids for your patience and I'm sorry for the trouble
 
-## Update 4.2.0
+## Update 2.5.0
 QMCFunc patches:
 - Icon overrides apply properly under all cases
 - listeners all work properly under all cases
@@ -88,12 +88,18 @@ QMCFunc patches:
 thorough testing has been done.
 This build is confirmed to be safe.
 
-## Update 4.2.1
+## Update 2.5.1
 - removed console references which i was using for debugging (thanks voids for pointing this out)
+
+## Non-Versioned Update
+- Readjusted versioning system to be more reasonable
+- Added bug(s) from the original WorldAPI
 
   ## Known Bug(s)
 - QMCSlider Reset Button Styling On Init Not Corrosponding With Slider Toggle and Slider Mute Button State Defaults
 - Applying a QMC-Type Control to a collapsible button group will put the control at the above all other controls by default
+- Custom Main Menu Tabs highlight the profile tab upon clicking
+- New VRCPage headers flash upon being opened
 
 
 # Credits
