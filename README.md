@@ -100,6 +100,7 @@ This build is confirmed to be safe.
 - Added several code optimizations
 - Fixed VRCPage headers flashing upon being opened
 - Removed QMCSlider Reset Button styling
+- Fixed QMCToggle and QMCSlider toggle control tooltips
 
 - Visible progress on the Wing API
 > Do not use yet.
