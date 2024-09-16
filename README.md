@@ -95,11 +95,22 @@ This build is confirmed to be safe.
 - Readjusted versioning system to be more reasonable
 - Added bug(s) from the original WorldAPI
 
+## Update 2.5.2
+- Fixed various spelling mistakes
+- Added several code optimizations
+- Fixed VRCPage headers flashing upon being opened
+- Removed QMCSlider Reset Button styling
+
+- Visible progress on the Wing API
+> Do not use yet.
+
+> The Wing API is not functional nor should it be used as functional code
+
+> The Wing API is still under development and will be released soon 
+
   ## Known Bug(s)
-- QMCSlider Reset Button Styling On Init Not Corrosponding With Slider Toggle and Slider Mute Button State Defaults
 - Applying a QMC-Type Control to a collapsible button group will put the control at the above all other controls by default
 - Custom Main Menu Tabs highlight the profile tab upon clicking
-- New VRCPage headers flash upon being opened
 
 
 # Credits
