@@ -43,7 +43,8 @@ public class APIBase
     //qm caro
     public static GameObject QMCarouselPageTemplate, QMCarouselSeparator, QMCarouselToggleTemplate, QMCarouselSliderTemplate, QMCarouselSelectorTemplate, QMCarouselTitleTemplate, QMCarouselFuncButtonTemplate;
     //qm wings
-    public static GameObject WingParentL, WingParentR;
+    public static GameObject WingParentL, WingParentR, WingPage, WRootButton;
+    public static GameObject WingButton, WingToggle;
 
     public static Transform Button, Tab, MenuPage, Slider;
 
@@ -88,6 +89,7 @@ public class APIBase
         //wings
         if ((WingParentL = QuickMenu?.transform.Find("CanvasGroup/Container/Window/Wing_Left/Container/InnerContainer/WingMenu/ScrollRect/Viewport/VerticalLayoutGroup")?.gameObject) == null) throw new NullReferenceException("WingParentL Is Null!");
         if ((WingParentR = QuickMenu?.transform.Find("CanvasGroup/Container/Window/Wing_Right/Container/InnerContainer/WingMenu/ScrollRect/Viewport/VerticalLayoutGroup")?.gameObject) == null) throw new NullReferenceException("WingParentR Is Null!");
+        if ((WingPage = QuickMenu?.transform.Find("CanvasGroup/Container/Window/Wing_Left/Container/InnerContainer/Profile")?.gameObject) == null) throw new NullReferenceException("WingPage Is Null!");
 
 
         if ((MMM = UserInterface.Find("Canvas_MainMenu(Clone)")?.gameObject) == null) throw new NullReferenceException("MainMenu Is Null!");

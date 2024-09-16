@@ -8,13 +8,13 @@ using Object = UnityEngine.Object;
 
 namespace WorldAPI.ButtonAPI.Buttons;
 
-public class VRCButton : ExtentedControl
+public class VRCButton : ExtendedControl
 {
     public VRCButton(Transform menu, string text, string tooltip, Action<VRCButton> listener, bool Half = false,
         bool SubMenuIcon = false, Sprite Icon = null, HalfType Type = HalfType.Normal, bool IsGroup = false)
     {
         if (!APIBase.IsReady())
-            throw new NullReferenceException("Object Search had FAILED!");
+            throw new NullReferenceException("Object Search has FAILED!");
         Icon ??= APIBase.DefaultButtonSprite;
 
         (transform = Object.Instantiate(APIBase.Button, menu)).name = $"Button_{text}";

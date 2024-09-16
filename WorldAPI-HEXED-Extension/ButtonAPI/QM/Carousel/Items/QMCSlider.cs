@@ -1,3 +1,4 @@
+using Serpentine.ButtonAPI.QM.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,28 +20,14 @@ using Object = UnityEngine.Object;
 
 namespace WorldAPI.ButtonAPI.QM.Carousel.Items //this control is gonna be exclusive to the qmc groups (legit jsut use a slider. its the same reference and the code in both classes is nearly identical)
 {
-    public class QMCSlider : Root
+    public class QMCSlider : SliderControl
     {
-        //slider
-        public TextMeshProUGUI TextMeshPro { get; private set; }
-        private Transform body { get; set; }
-        public Transform valDisplay { get; private set; }
-        public Transform slider { get; private set; }
-        public float DefaultValue { get; private set; }
-        public SnapSliderExtendedCallbacks snapSlider { get; private set; }
-        //toggle
-        public Action<bool> ToggleListener { get; set; }
-        public Transform Handle { get; private set; }
-        public Toggle ToggleCompnt { get; private set; }
-        public bool ToggleValue { get; private set; }
         private bool shouldInvoke = true;
         private static Vector3 onPos = new(93, 0, 0), offPos = new(30, 0, 0);
-        //reset button
-        public Transform ResetButton { get; private set; }
         public QMCSlider(Transform parent, string text, string tooltip, Action<float, QMCSlider> listener, float defaultValue = 0f, float minValue = 0f, float maxValue = 100f, bool isDecimal = false, string ending = "%", bool separator = false)
         {
             if (!APIBase.IsReady())
-                throw new NullReferenceException("Object Search had FAILED!");
+                throw new NullReferenceException("Object Search has FAILED!");
 
             DefaultValue = defaultValue;
 
@@ -87,14 +74,14 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items //this control is gonna be exclus
             snapSlider.onValueChanged.AddListener(new Action<float>((va) => perst.text = va.ToString(figures) + ending));
             perst.text = defaultValue + ending;
 
+            ResetButton = this.transform.Find("RightItemContainer/Button");
+
             gameObject.GetComponent<SettingComponent>().enabled = false;
         }
         public QMCSlider AddResetButton(float value = -0)
         {
-            ResetButton = this.transform.Find("RightItemContainer/Button");
             ResetButton.gameObject.SetActive(true);
             ResetButton.GetComponent<ToolTip>()._localizableString = "Reset to the default value".Localize();
-            ResetButton.GetOrAddComponent<CanvasGroup>().alpha = 1f;
 
             var button = ResetButton.GetComponent<Button>();
             button.onClick.AddListener(new Action(() => ResetValue(value)));
@@ -196,7 +183,8 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items //this control is gonna be exclus
                     SetVisualComponents(val);
                 }));
 
-                toggleButton.gameObject.GetComponent<UiToggleTooltip>()._localizableString = "Enable / disable this setting".Localize();
+                toggleButton.gameObject.GetComponent<UiToggleTooltip>()._localizableString = "Enable this setting".Localize();
+                toggleButton.gameObject.GetComponent<UiToggleTooltip>()._alternateLocalizableString = "Disable this setting".Localize();
             }
             else
             {
@@ -220,31 +208,17 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items //this control is gonna be exclus
                 slider.GetComponent<Selectable>().m_GroupsAllowInteraction = false;
                 slider.GetComponent<CanvasGroup>().alpha = 0.25f;
                 slider.parent.Find("Text_MM_H3").GetComponent<CanvasGroup>().alpha = 0.25f;
-                if (ResetButton.gameObject.active == true)
-                {
-                    var RBStyle = ResetButton.GetComponent<StyleElement>();
-                    ResetButton.GetComponent<CanvasGroup>().alpha = 0.25f;
-                    RBStyle.field_Private_Boolean_0 = false;
-                    RBStyle.field_Private_Boolean_1 = true;
-                }
             }
             else
             {
                 slider.GetComponent<Selectable>().m_GroupsAllowInteraction = true;
                 slider.GetComponent<CanvasGroup>().alpha = 1f;
                 slider.parent.Find("Text_MM_H3").GetComponent<CanvasGroup>().alpha = 1f;
-                if (ResetButton.gameObject.active == true)
-                {
-                    var RBStyle = ResetButton.GetComponent<StyleElement>();
-                    ResetButton.GetComponent<CanvasGroup>().alpha = 1f;
-                    RBStyle.field_Private_Boolean_0 = true;
-                    RBStyle.field_Private_Boolean_1 = false;
-                }
             }
         }
 
         public QMCSlider(QMCGroup group, string text, string tooltip, Action<float, QMCSlider> listener, float defaultValue = 0f, float minValue = 0f, float maxValue = 100f, bool isDecimal = false, string ending = "%", bool separator = false)
-            : this(group.GetTransform().Find("QM_Settings_Panel/VerticalLayoutGroup"), text, tooltip, listener, defaultValue, minValue, maxValue, isDecimal, ending, separator) 
+            : this(group.GetTransform().Find("QM_Settings_Panel/VerticalLayoutGroup"), text, tooltip, listener, defaultValue, minValue, maxValue, isDecimal, ending, separator)
         { }
     }
 }

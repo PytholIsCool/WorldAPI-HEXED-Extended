@@ -10,10 +10,11 @@ using Object = UnityEngine.Object;
 using VRC.UI.Elements.Controls;
 using WorldAPI.ButtonAPI.Extras;
 using WorldAPI.ButtonAPI.Groups;
+using Serpentine.ButtonAPI.QM.Controls;
 
 namespace WorldAPI.ButtonAPI.QM.Carousel.Items
 {
-    public class QMCSelector : ExtentedControl
+    public class QMCSelector : QMCControl
     {
         public ToolTip ContainerTooltip { get; set; }
         public ToolTip SelectionBoxTextTooltip { get; set; }
@@ -25,7 +26,7 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
         public QMCSelector(Transform parent, string text, string containerTooltip, bool separator = false)
         {
             if (!APIBase.IsReady())
-                throw new NullReferenceException("Object Search had FAILED!");
+                throw new NullReferenceException("Object Search has FAILED!");
 
             gameObject = Object.Instantiate(APIBase.QMCarouselSelectorTemplate, parent);
             transform = gameObject.transform;

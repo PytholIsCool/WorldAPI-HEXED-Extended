@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using WorldAPI.ButtonAPI.Controls;
 using WorldAPI.ButtonAPI.Extras;
-using static WorldAPI.ButtonAPI.Controls.ExtentedControl;
+using static WorldAPI.ButtonAPI.Controls.ExtendedControl;
 
 namespace WorldAPI.ButtonAPI.Buttons.Groups;
 

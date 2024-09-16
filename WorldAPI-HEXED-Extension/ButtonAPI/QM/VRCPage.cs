@@ -149,16 +149,16 @@ public class VRCPage : WorldPage
         QMUtils.GetMenuStateControllerInstance.Method_Public_Void_String_UIContext_Boolean_TransitionType_0(Page.field_Public_String_0, null, false, UIPage.TransitionType.Right);
         OnMenuOpen?.Invoke();
         lastOpenedPage = this;
-        CoroutineManager.RunCoroutine(IWillKrillSomeone());
+        //CoroutineManager.RunCoroutine(IWillKrillSomeone());
     }
 
-    IEnumerator IWillKrillSomeone()
-    {
-        yield return new WaitForSeconds(.3f);
-        Page.transform.Find("Header_Camera").gameObject.active = false;
-        yield return new WaitForSeconds(.1f);
-        Page.transform.Find("Header_Camera").gameObject.active = true;
-    }
+    //IEnumerator IWillKrillSomeone()
+    //{
+    //    yield return new WaitForSeconds(.3f);
+    //    Page.transform.Find("Header_Camera").gameObject.active = false;
+    //    yield return new WaitForSeconds(.1f);
+    //    Page.transform.Find("Header_Camera").gameObject.active = true;
+    //}
 
     public void SetTitle(string text) => pageTitleText.text = text;
     public void CloseMenu() => Page.Method_Protected_Virtual_New_Void_0();

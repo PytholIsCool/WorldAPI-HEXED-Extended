@@ -16,7 +16,7 @@ public class DuoButtons : Root {
         string buttonTwoTooltip, Action<DuoButtons> buttonTwoAction) 
     {
         if (!APIBase.IsReady())
-            throw new NullReferenceException("Object Search had FAILED!");
+            throw new NullReferenceException("Object Search has FAILED!");
 
         (transform = (gameObject = new("Button_DuoToggles")).transform).parent = menu.transform;
         QMUtils.ResetTransform(transform);

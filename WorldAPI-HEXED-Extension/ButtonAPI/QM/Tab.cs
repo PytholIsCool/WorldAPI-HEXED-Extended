@@ -9,7 +9,7 @@ using WorldAPI.ButtonAPI.Extras;
 
 namespace WorldAPI.ButtonAPI;
 
-public class Tab : ExtentedControl {
+public class Tab : ExtendedControl {
     public GameObject badgeGameObject { get; private set; }
     public TextMeshProUGUI badgeText { get; private set; }
     public Image tabIcon { get; private set; }

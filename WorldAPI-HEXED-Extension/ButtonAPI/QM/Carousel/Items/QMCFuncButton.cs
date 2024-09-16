@@ -12,16 +12,17 @@ using WorldAPI.ButtonAPI.Controls;
 using WorldAPI.ButtonAPI.Extras;
 using WorldAPI.ButtonAPI.Groups;
 using Object = UnityEngine.Object;
+using Console = Serpentine.PyLog.Console;
 using UnityEngine.Playables;
 using WorldAPI.ButtonAPI.Buttons;
 using VRC.UI.Element;
+using Serpentine.ButtonAPI.QM.Controls;
 
 namespace WorldAPI.ButtonAPI.QM.Carousel.Items
 {
-    public class QMCFuncButton : ExtentedControl //this control was extra difficult for no good fucking reason
+    public class QMCFuncButton : QMCControl //this control was extra difficult for no good fucking reason
     {
         public Action<bool> Listener {  get; set; }
-        public Toggle ToggleCompnt {  get; set; }
         public bool isToggled { get; private set; }
         public Image ToggleSprite;
         public Transform ButtonParent {  get; private set; }
@@ -33,7 +34,7 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
         public QMCFuncButton(Transform parent, string text, string tooltip, Action listener, bool rightContainer = false, bool separator = false, Sprite sprite = null)
         {
             if (!APIBase.IsReady())
-                throw new NullReferenceException("Object Search had FAILED!");
+                throw new NullReferenceException("Object Search has FAILED!");
             transform = Object.Instantiate(APIBase.QMCarouselFuncButtonTemplate, parent).transform;
             gameObject = transform.gameObject;
             gameObject.name = text + "_ControlContainer";

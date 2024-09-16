@@ -21,7 +21,7 @@ namespace WorldAPI.ButtonAPI.QM.Carousel
         public QMCGroup(Transform parent, string text, TextAnchor ButtonAlignment = TextAnchor.UpperLeft)
         {
             if (!APIBase.IsReady())
-                throw new NullReferenceException("Object Search had FAILED!");
+                throw new NullReferenceException("Object Search has FAILED!");
 
             gameObject = Object.Instantiate(APIBase.QMCarouselPageTemplate, parent);
             gameObject.name = text;

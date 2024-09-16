@@ -19,7 +19,7 @@ public class CollapsibleButtonGroup : ButtonGroupControl
     public CollapsibleButtonGroup(Transform parent, string text, bool openByDefault = true)
     {
         if (!APIBase.IsReady())
-            throw new NullReferenceException("Object Search had FAILED!");
+            throw new NullReferenceException("Object Search has FAILED!");
 
         headerObj = Object.Instantiate(APIBase.ColpButtonGrp, parent);
         headerObj.name = $"{text}_CollapsibleButtonGroup";

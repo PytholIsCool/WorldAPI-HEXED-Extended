@@ -18,7 +18,7 @@ public class DuoToggles : Root {
         float FirstFontSize = 24f, float SecondFontSize = 24f, bool FirstState = false, bool SecondState = false)
     {
         if (!APIBase.IsReady())
-            throw new NullReferenceException("Object Search had FAILED!");
+            throw new NullReferenceException("Object Search has FAILED!");
 
         (transform = (gameObject = new("Button_DuoToggles")).transform).parent = menu.transform;
         QMUtils.ResetTransform(transform);

@@ -17,7 +17,7 @@ public class VRCToggle : ToggleControl
         string OnToolTip = null, Sprite onimage = null, Sprite offimage = null, bool half = false)
     {
         if (!APIBase.IsReady())
-            throw new NullReferenceException("Object Search had FAILED!");
+            throw new NullReferenceException("Object Search has FAILED!");
         OffTooltip ??= $"Turn On {text.Replace("\n", string.Empty)}";
         OnToolTip ??= $"Turn Off {text.Replace("\n", string.Empty)}";
 

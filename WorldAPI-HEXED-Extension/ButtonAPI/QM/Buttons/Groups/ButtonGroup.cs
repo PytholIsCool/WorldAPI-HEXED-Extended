@@ -15,7 +15,7 @@ public class ButtonGroup : ButtonGroupControl {
 
     public ButtonGroup(Transform parent, string text, bool NoText = false, TextAnchor ButtonAlignment = TextAnchor.UpperCenter) {
         if (!APIBase.IsReady())
-            throw new NullReferenceException("Object Search had FAILED!");
+            throw new NullReferenceException("Object Search has FAILED!");
 
         if (!(WasNoText = NoText)) {
             headerGameObject = Object.Instantiate(APIBase.ButtonGrpText, parent);

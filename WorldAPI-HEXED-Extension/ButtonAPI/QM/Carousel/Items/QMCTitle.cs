@@ -8,15 +8,16 @@ using UnityEngine;
 using WorldAPI.ButtonAPI.QM.Carousel;
 using WorldAPI.ButtonAPI.Controls;
 using Object = UnityEngine.Object;
+using Serpentine.ButtonAPI.QM.Controls;
 
 namespace WorldAPI.ButtonAPI.QM.Carousel.Items
 {
-    public class QMCTitle : Root
+    public class QMCTitle : QMCControl
     {
         public QMCTitle(Transform parent, string text, bool separator = false)
         {
             if (!APIBase.IsReady())
-                throw new NullReferenceException("Object Search had FAILED!");
+                throw new NullReferenceException("Object Search has FAILED!");
 
             transform = Object.Instantiate(APIBase.QMCarouselTitleTemplate, parent).transform;
             gameObject = transform.gameObject;

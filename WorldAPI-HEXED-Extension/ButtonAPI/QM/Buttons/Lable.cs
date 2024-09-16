@@ -14,7 +14,7 @@ public class VRCLable : Root {
 
     public VRCLable(Transform menu, string text, string LowerText, Action onClick = null, bool Bg = true) {
         if (!APIBase.IsReady())
-            throw new NullReferenceException("Object Search had FAILED!");
+            throw new NullReferenceException("Object Search has FAILED!");
 
         gameObject = (SButton = new VRCButton(menu, text, null, onClick)).gameObject;
         ButtonCompnt = SButton.ButtonCompnt;

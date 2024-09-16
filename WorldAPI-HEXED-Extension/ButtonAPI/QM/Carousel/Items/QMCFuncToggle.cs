@@ -1,3 +1,4 @@
+using Serpentine.ButtonAPI.QM.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ using WorldAPI.ButtonAPI.Groups;
 using Object = UnityEngine.Object;
 namespace WorldAPI.ButtonAPI.QM.Carousel.Items
 {
-    public class QMCFuncToggle : ExtentedControl //i just realized hacker mispelled this shit
+    public class QMCFuncToggle : QMCControl //i just realized hacker mispelled this shit
     {
         public Action<bool> Listener { get; set; }
         public bool isToggled { get; private set; }
@@ -28,7 +29,7 @@ namespace WorldAPI.ButtonAPI.QM.Carousel.Items
         public QMCFuncToggle(Transform parent, string text, Action<bool> listener, string tooltip = "", bool rightContainer = false, bool defaultState = false, bool separator = false, Sprite onSprite = null, Sprite offSprite = null)
         {
             if (!APIBase.IsReady())
-                throw new NullReferenceException("Object Search had FAILED!");
+                throw new NullReferenceException("Object Search has FAILED!");
             transform = Object.Instantiate(APIBase.QMCarouselFuncButtonTemplate, parent).transform;
             gameObject = transform.gameObject;
             gameObject.name = text + "_ToggleControlContainer";
