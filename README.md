@@ -14,6 +14,11 @@ This extension comes with:
 - Added QMCToggle Control
 - Added QMCSlider Control
 - Added QMCSelector Control
+- Added QMCFuncButton Control
+- Added QMCFuncToggle Control
+- Various visual bug fixes
+
+and much more!
 
 ## Update V2
 - Added State Change stuff for toggles
