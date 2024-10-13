@@ -114,7 +114,7 @@ This build is confirmed to be safe.
 
 > The Wing API is still under development and will be released soon 
 
-## Update 2.6
+## Update 2.6.0
 - Made the syntax consistent across all files
 - Various code optimizations
 - Visible progress on the Wing API
