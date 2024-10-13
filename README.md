@@ -114,6 +114,13 @@ This build is confirmed to be safe.
 
 > The Wing API is still under development and will be released soon 
 
+## Update 2.6
+- Made the syntax consistent across all files
+- Various code optimizations
+- Visible progress on the Wing API
+> Not ready for use yet, but close
+
+
   ## Known Bug(s)
 - Applying a QMC-Type Control to a collapsible button group will put the control at the above all other controls by default
 - Custom Main Menu Tabs highlight the profile tab upon clicking
