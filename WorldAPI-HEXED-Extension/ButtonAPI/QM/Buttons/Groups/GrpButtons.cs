@@ -16,8 +16,7 @@ public class GrpButtons : Root {
 
     public GrpButtons(GameObject menu, string FirstName, string FirstTooltip, Action action, 
         string SecondName = null, string SecondTooltip = null, Action Secondaction = null, 
-        string thirdName = null, string thirdTooltip = null, Action thirdaction = null)
-    {
+        string thirdName = null, string thirdTooltip = null, Action thirdaction = null) {
         (transform = (gameObject = new("Button_GroupOfHalfButtons")).transform).parent = menu.transform;
         QMUtils.ResetTransform(transform);
         gameObject.AddComponent<LayoutElement>();
@@ -42,6 +41,5 @@ public class GrpButtons : Root {
         string SecondName = null, string SecondTooltip = null, Action Secondaction = null,
         string thirdName = null, string thirdTooltip = null, Action thirdaction = null) : this(grp.GroupContents, FirstName, FirstTooltip, action,
             SecondName, SecondTooltip, Secondaction,
-            thirdName, thirdTooltip, thirdaction)
-    { }
+            thirdName, thirdTooltip, thirdaction) { }
 }

@@ -16,7 +16,7 @@ public class MMTab : Root {
     public static Action OnClick { get; set; }
 
     public Image Image { get; private set; }
-    public VRC.UI.Elements.Controls.ToolTip ToolTip { get; private set; }
+    public ToolTip ToolTip { get; private set; }
     public Button MenuTab { get; private set; }
 
     private void Make(Action method, string toolTip, Sprite sprite) {
@@ -30,7 +30,7 @@ public class MMTab : Root {
         gameObject.GetComponent<StyleElement>().field_Private_Selectable_0 = gameObject.GetComponent<Button>();
         gameObject.GetComponent<Button>().onClick.AddListener(new Action(() => gameObject.SetActive(true)));
 
-        (ToolTip = gameObject.GetComponent<VRC.UI.Elements.Controls.ToolTip>())._localizableString = toolTip.Localize();
+        (ToolTip = gameObject.GetComponent<ToolTip>())._localizableString = toolTip.Localize();
         ((MenuTab = gameObject.GetComponent<Button>()).onClick = new()).AddListener(method);
     }
 

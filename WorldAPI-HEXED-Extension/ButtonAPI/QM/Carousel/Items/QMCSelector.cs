@@ -10,98 +10,72 @@ using Object = UnityEngine.Object;
 using VRC.UI.Elements.Controls;
 using WorldAPI.ButtonAPI.Extras;
 using WorldAPI.ButtonAPI.Groups;
-using Serpentine.ButtonAPI.QM.Controls;
+using WorldAPI.ButtonAPI.QM.Controls;
 
-namespace WorldAPI.ButtonAPI.QM.Carousel.Items
-{
-    public class QMCSelector : QMCControl
-    {
-        public ToolTip ContainerTooltip { get; set; }
-        public ToolTip SelectionBoxTextTooltip { get; set; }
-        public TextMeshProUGUI TMProSelectionBoxText { get; set; }
+namespace WorldAPI.ButtonAPI.QM.Carousel.Items;
 
-        private List<Setting> settings = new List<Setting>();
-        private int currentIndex = 0;
+public class QMCSelector : QMCControl {
+    public ToolTip ContainerTooltip { get; set; }
+    public ToolTip SelectionBoxTextTooltip { get; set; }
+    public TextMeshProUGUI TMProSelectionBoxText { get; set; }
 
-        public QMCSelector(Transform parent, string text, string containerTooltip, bool separator = false)
-        {
-            if (!APIBase.IsReady())
-                throw new NullReferenceException("Object Search has FAILED!");
+    private List<Setting> settings = new List<Setting>();
+    private int currentIndex = 0;
+    public QMCSelector(Transform parent, string text, string containerTooltip, bool separator = false) {
+        if (!APIBase.IsReady())
+            throw new NullReferenceException("Object Search has FAILED!");
 
-            gameObject = Object.Instantiate(APIBase.QMCarouselSelectorTemplate, parent);
-            transform = gameObject.transform;
-            gameObject.name = text;
+        (transform = (gameObject = Object.Instantiate(APIBase.QMCarouselSelectorTemplate, parent)).transform).name = text;
 
-            TMProCompnt = transform.Find("LeftItemContainer/Title").GetComponent<TextMeshProUGUI>();
-            TMProCompnt.text = text;
-            TMProCompnt.richText = true;
-            Text = text;
+        Text = (TMProCompnt = transform.Find("LeftItemContainer/Title").GetComponent<TextMeshProUGUI>()).text = text;
+        TMProCompnt.richText = true;
 
-            if (separator != false)
-            {
-                GameObject seB = Object.Instantiate(APIBase.QMCarouselSeparator, parent);
-                seB.name = "Separator";
-            }
+        if (separator != false)
+            AddSeparator(parent);
 
-            (ContainerTooltip = transform.Find("LeftItemContainer").GetComponent<ToolTip>())._localizableString = containerTooltip.Localize();
+        (ContainerTooltip = transform.Find("LeftItemContainer").GetComponent<ToolTip>())._localizableString = containerTooltip.Localize();
 
-            Button buttonLeft = transform.Find("RightItemContainer/ButtonLeft").transform.GetComponent<Button>();
-            buttonLeft.onClick.AddListener(new Action(() => ScrollLeft()));
-            Button buttonRight = transform.Find("RightItemContainer/ButtonRight").transform.GetComponent<Button>();
-            buttonRight.onClick.AddListener(new Action(() => ScrollRight()));
-        }
-
-        public QMCSelector AddSetting(string name, string tooltip, Action listener)
-        {
-            settings.Add(new Setting { Name = name, Tooltip = tooltip, Listener = listener });
-
-            if (settings.Count == 1)
-            {
-                UpdateDisplayedSetting(0);
-            }
-            
-            return this;
-        }
-
-        private void ScrollLeft()
-        {
-            if (settings.Count == 0) return;
-
-            currentIndex = (currentIndex - 1 + settings.Count) % settings.Count;
-            UpdateDisplayedSetting(currentIndex);
-        }
-
-        private void ScrollRight()
-        {
-            if (settings.Count == 0) return;
-
-            currentIndex = (currentIndex + 1) % settings.Count;
-            UpdateDisplayedSetting(currentIndex);
-        }
-
-        private void UpdateDisplayedSetting(int index)
-        {
-            var setting = settings[index];
-            TMProSelectionBoxText = this.transform.Find("RightItemContainer/OptionSelectionBox/Text_MM_H3").GetComponent<TextMeshProUGUI>();
-            TMProSelectionBoxText.text = setting.Name;
-
-            (SelectionBoxTextTooltip = this.transform.Find("RightItemContainer/OptionSelectionBox").GetComponent<ToolTip>())._localizableString = setting.Tooltip.Localize();
-
-            setting.Listener?.Invoke();
-        }
-
-        private class Setting
-        {
-            public string Name { get; set; }
-            public string Tooltip { get; set; }
-            public Action Listener { get; set; }
-        }
-        public QMCSelector(QMCGroup group, string text, string containerTooltip, bool separator = false)
-            : this(group.GetTransform().Find("QM_Settings_Panel/VerticalLayoutGroup").transform, text, containerTooltip, separator)
-        { }
-
-        public QMCSelector(CollapsibleButtonGroup buttonGroup, string text, string containerTooltip, bool separator = false)
-            : this(buttonGroup.QMCParent, text, containerTooltip, separator)
-        { }
+        Button buttonLeft = transform.Find("RightItemContainer/ButtonLeft").transform.GetComponent<Button>();
+        buttonLeft.onClick.AddListener(new Action(() => ScrollLeft()));
+        Button buttonRight = transform.Find("RightItemContainer/ButtonRight").transform.GetComponent<Button>();
+        buttonRight.onClick.AddListener(new Action(() => ScrollRight()));
     }
+
+    public QMCSelector AddSetting(string name, string tooltip, Action listener) {
+        settings.Add(new Setting { Name = name, Tooltip = tooltip, Listener = listener });
+        if (settings.Count == 1) {
+            UpdateDisplayedSetting(0);
+        }
+        return this;
+    }
+
+    private void ScrollLeft() {
+        if (settings.Count == 0) return;
+        currentIndex = (currentIndex - 1 + settings.Count) % settings.Count;
+        UpdateDisplayedSetting(currentIndex);
+    }
+
+    private void ScrollRight() {
+        if (settings.Count == 0) return;
+        currentIndex = (currentIndex + 1) % settings.Count;
+        UpdateDisplayedSetting(currentIndex);
+    }
+
+    private void UpdateDisplayedSetting(int index) {
+        var setting = settings[index];
+        (TMProSelectionBoxText = this.transform.Find("RightItemContainer/OptionSelectionBox/Text_MM_H3").GetComponent<TextMeshProUGUI>()).text = setting.Name;
+        (SelectionBoxTextTooltip = this.transform.Find("RightItemContainer/OptionSelectionBox").GetComponent<ToolTip>())._localizableString = setting.Tooltip.Localize();
+        setting.Listener?.Invoke();
+    }
+
+    private class Setting {
+        public string Name { get; set; }
+        public string Tooltip { get; set; }
+        public Action Listener { get; set; }
+    }
+    public QMCSelector(QMCGroup group, string text, string containerTooltip, bool separator = false)
+        : this(group.GetTransform().Find("QM_Settings_Panel/VerticalLayoutGroup").transform, text, containerTooltip, separator) { }
+
+    public QMCSelector(CollapsibleButtonGroup buttonGroup, string text, string containerTooltip, bool separator = false)
+        : this(buttonGroup.QMCParent, text, containerTooltip, separator) { }
 }

@@ -8,15 +8,13 @@ namespace WorldAPI.ButtonAPI.Buttons.Groups;
 
 public class DuoToggles : Root {
     public Transform ObjectHolder { get; private set; }
-
     public VRCToggle ToggleOne { get; private set; }
     public VRCToggle ToggleTwo { get; private set; }
 
     public DuoToggles(GameObject menu, string text, string Ontooltip, string OffTooltip, Action<bool> BoolStateChange, 
         string text2, string Ontooltip2, string OffTooltip2, Action<bool> BoolStateChange2, 
         Sprite OnImageSprite = null, Sprite OffImageSprite = null,
-        float FirstFontSize = 24f, float SecondFontSize = 24f, bool FirstState = false, bool SecondState = false)
-    {
+        float FirstFontSize = 24f, float SecondFontSize = 24f, bool FirstState = false, bool SecondState = false) {
         if (!APIBase.IsReady())
             throw new NullReferenceException("Object Search has FAILED!");
 
@@ -40,6 +38,5 @@ public class DuoToggles : Root {
         float FirstFontSize = 24f, float SecondFontSize = 24f, bool FirstState = false, bool SecondState = false) :
         this(btnGrp.GroupContents, text, Ontooltip, OffTooltip, BoolStateChange, 
             text2, Ontooltip2, OffTooltip2, BoolStateChange2,
-            OnImageSprite, OffImageSprite, FirstFontSize, SecondFontSize, FirstState, SecondState)
-    { }
+            OnImageSprite, OffImageSprite, FirstFontSize, SecondFontSize, FirstState, SecondState) { }
 }

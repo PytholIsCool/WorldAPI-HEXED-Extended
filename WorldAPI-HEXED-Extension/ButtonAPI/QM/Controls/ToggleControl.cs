@@ -15,8 +15,7 @@ public class ToggleControl : Root {
     internal VRCToggle inst;
     internal Action<bool, VRCToggle> Listener { get; set; }
 
-    public bool State
-    {
+    public bool State {
         get => ToggleCompnt.isOn;
         set => ToggleCompnt.isOn = value;
     }

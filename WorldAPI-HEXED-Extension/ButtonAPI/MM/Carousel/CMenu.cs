@@ -10,8 +10,7 @@ using Object = UnityEngine.Object;
 
 namespace WorldAPI.ButtonAPI.MM.Carousel;
 
-public class CMenu : Root
-{
+public class CMenu : Root {
     internal List<GameObject> ChlidrenObjects { get; set; } = new(); // This prlly isn't the best way to do this
     public Action OnClick { get; set; }
 
@@ -27,8 +26,7 @@ public class CMenu : Root
         if (Icon == null)
             Icon = APIBase.DefaultButtonSprite;
 
-        transform = (gameObject = Object.Instantiate(APIBase.MMMCarouselButtonTemplate, transform)).transform;
-        gameObject.name = buttonText;
+        (transform = (gameObject = Object.Instantiate(APIBase.MMMCarouselButtonTemplate, transform)).transform).name = buttonText;
 
         TMProCompnt = gameObject.transform.Find("Mask/Text_Name").GetComponent<TextMeshProUGUI>();
         TMProCompnt.text = buttonText;

@@ -27,14 +27,11 @@ public class CToggle : Root {
         if (!APIBase.IsReady())
             throw new NullReferenceException("Object Search had FAILED!");
 
-        gameObject = Object.Instantiate(APIBase.MMCTgl, grp.MenuContents.transform);
-        transform = gameObject.transform;
-        gameObject.name = text;
+        (transform = (gameObject = Object.Instantiate(APIBase.MMCTgl, grp.MenuContents.transform)).transform).name = text;
 
         TMProCompnt = transform.Find("LeftItemContainer/Title").GetComponent<TextMeshProUGUI>();
-        TMProCompnt.text = text;
+        Text = TMProCompnt.text = text;
         TMProCompnt.richText = true;
-        Text = text;
 
         (ToolTip = gameObject.GetComponent<UiToggleTooltip>())._localizableString = toolTip.Localize();
 
@@ -56,7 +53,6 @@ public class CToggle : Root {
             Handle.localPosition = val ? onPos : offPos;
         }));
         gameObject.GetComponent<SettingComponent>().enabled = false;
-
     }
 
     public void SoftSetState(bool value) {

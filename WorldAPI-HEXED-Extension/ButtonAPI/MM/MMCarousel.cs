@@ -43,13 +43,10 @@ public class MMCarousel : WorldPage {
         if (!Preped) PrePrepMenu();
         var region = 0; 
 
-        try
-        {
-            transform = (gameObject = Object.Instantiate(APIBase.MMMCarouselPageTemplate, APIBase.MMMCarouselPageTemplate.transform.parent)).transform;
-            gameObject.name = menuName;
-            MenuName = menuName;
+        try {
+            MenuName = (transform = (gameObject = Object.Instantiate(APIBase.MMMCarouselPageTemplate, APIBase.MMMCarouselPageTemplate.transform.parent)).transform).name = menuName;
             Page = gameObject.GetComponent<UIPage>();
-            var GuidName = menuName + Guid.NewGuid();
+            var GuidName = $"{menuName}_{Guid.NewGuid()}";
 
             Page.field_Public_String_0 = GuidName;
             (Page.field_Private_List_1_UIPage_0 = new()).Add(Page);
@@ -119,8 +116,7 @@ public class MMCarousel : WorldPage {
     }
 
     public void SetExtraButtons(string text1, Action listener1, string toolTip1, string text2, Action listener2, // Honestly this is pretty bad and i got lazy 7-7
-        string toolTip2, Sprite sprite1 = null, Sprite sprite2 = null) 
-    {
+        string toolTip2, Sprite sprite1 = null, Sprite sprite2 = null) {
         sprite1 ??= APIBase.DefaultButtonSprite;
         sprite2 ??= APIBase.DefaultButtonSprite;
 
@@ -133,7 +129,6 @@ public class MMCarousel : WorldPage {
         ExitBtn.GetComponent<VRC.UI.Elements.Controls.ToolTip>()._localizableString = toolTip2.Localize();
         ExitBtn.gameObject.active = true;
         Apply(ExitBtn, text2, sprite2);
-
 
         void Apply(Transform btn, string text, Sprite icom) {
             foreach (var obj in btn.GetComponentsInChildren<TextMeshProUGUI>()) {

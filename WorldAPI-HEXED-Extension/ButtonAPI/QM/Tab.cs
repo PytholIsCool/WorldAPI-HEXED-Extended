@@ -19,15 +19,14 @@ public class Tab : ExtendedControl {
 
     private StyleElement element;
 
-    public Tab(VRCPage menu, string tooltip, Sprite icon = null, Transform parent = null, bool openMenu = true)
-    {
+    public Tab(VRCPage menu, string tooltip, Sprite icon = null, Transform parent = null, bool openMenu = true) {
         if (!APIBase.IsReady()) throw new Exception();
 
         if (parent == null)
             parent = APIBase.Tab.parent;
         Menu = menu;
 
-        (gameObject = UnityEngine.Object.Instantiate(APIBase.Tab.gameObject, parent)).name = menu.MenuName + "_Tab";
+        (gameObject = UnityEngine.Object.Instantiate(APIBase.Tab.gameObject, parent)).name = $"{menu.MenuName}_Tab";
         (tabIcon = gameObject.transform.Find("Icon").GetComponent<Image>()).overrideSprite = icon;
         (element = gameObject.GetComponent<StyleElement>()).field_Private_Selectable_0 = (Button = gameObject.GetComponent<Button>());
         (Button.onClick = new()).AddListener((Action)delegate {
@@ -44,5 +43,4 @@ public class Tab : ExtendedControl {
 
         gameObject.active = true;
     }
-
 }

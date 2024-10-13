@@ -37,6 +37,5 @@ public class VRCLable : Root {
     }
 
     public VRCLable(ButtonGroupControl grp, string text, string LowerText, Action onClick = null, bool Bg = false)
-        : this(grp.GroupContents.transform, text, LowerText, onClick, Bg)
-    { }
+        : this(grp.GroupContents.transform, text, LowerText, onClick, Bg) { }
 }

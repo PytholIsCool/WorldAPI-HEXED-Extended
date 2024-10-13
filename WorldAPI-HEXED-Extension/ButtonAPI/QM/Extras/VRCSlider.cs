@@ -25,18 +25,14 @@ public class VRCSlider {
         if (!APIBase.IsReady())
             throw new NullReferenceException("Object Search had FAILED!");
 
-        transform = Object.Instantiate(APIBase.Slider, menu);
-        gameObject = transform.gameObject;
-        gameObject.name = text;
+        (transform = (gameObject = Object.Instantiate(APIBase.Slider, menu).gameObject).transform).name = text;
 
         (TextMeshPro = gameObject.transform.Find("LeftItemContainer/Title").GetComponent<TextMeshProUGUI>()).text = text;
         TextMeshPro.richText = true;
 
-        (slider = gameObject.transform.Find("RightItemContainer/Slider"))
-            .GetComponent<VRC.UI.Elements.Controls.ToolTip>()._localizableString = tooltip.Localize();
+        (slider = gameObject.transform.Find("RightItemContainer/Slider")).GetComponent<ToolTip>()._localizableString = tooltip.Localize();
 
-        snapSlider = slider.GetComponent<SnapSliderExtendedCallbacks>();
-        snapSlider.field_Private_UnityEvent_0 = null;
+        (snapSlider = slider.GetComponent<SnapSliderExtendedCallbacks>()).field_Private_UnityEvent_0 = null;
         snapSlider.onValueChanged = new();
         snapSlider.minValue = minValue;
         snapSlider.maxValue = maxValue;
@@ -46,7 +42,6 @@ public class VRCSlider {
         slider.parent.Find("Text_MM_H3").gameObject.active = false;
         gameObject.GetComponent<SettingComponent>().enabled = false;
     }
-
     public VRCSlider PercentEnding(string ending = "%") {
         var perst = slider.parent.Find("Text_MM_H3").GetComponent<TextMeshProUGUI>();
         perst.gameObject.active = true;
@@ -59,7 +54,7 @@ public class VRCSlider {
 
     public VRCSlider Button(Action<VRCSlider> onClick, string toolTip = "", Sprite Icon = null) {
         var Btn = slider.parent.Find("Button");
-        Btn.GetComponent<VRC.UI.Elements.Controls.ToolTip>()._localizableString = toolTip.Localize();
+        Btn.GetComponent<ToolTip>()._localizableString = toolTip.Localize();
         (Btn.GetComponent<Button>().onClick = new()).AddListener(new Action(() => onClick?.Invoke(this)));
         Btn.gameObject.active = true;
 
@@ -67,7 +62,6 @@ public class VRCSlider {
 
         return this;
     }
-
     public VRCToggle Toggle(string text, Action<bool> listenr, bool defaultState = false, string OffTooltip = null, string OnToolTip = null,
             Sprite onimage = null, Sprite offimage = null) {
         var tgl = new VRCToggle(slider.parent, text, listenr, defaultState, OffTooltip, OnToolTip, onimage, offimage);

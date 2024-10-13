@@ -13,8 +13,7 @@ public class DuoButtons : Root {
     public VRCButton ButtonTwo { get; private set; }
 
     public DuoButtons(GameObject menu, string buttonOne, string buttonOneTooltip, Action<DuoButtons> btnAction, string buttonTwo,
-        string buttonTwoTooltip, Action<DuoButtons> buttonTwoAction) 
-    {
+        string buttonTwoTooltip, Action<DuoButtons> buttonTwoAction) {
         if (!APIBase.IsReady())
             throw new NullReferenceException("Object Search has FAILED!");
 
@@ -32,12 +31,10 @@ public class DuoButtons : Root {
 
     public DuoButtons(ButtonGroupControl grp, string buttonOne, string buttonOneTooltip, Action btnAction, string buttonTwo, string buttonTwoTooltip, Action buttonTwoAction) :
         this(grp.GroupContents, buttonOne, buttonOneTooltip, (_) => btnAction(),
-            buttonTwo, buttonTwoTooltip, (_) => buttonTwoAction())
-    { }
+            buttonTwo, buttonTwoTooltip, (_) => buttonTwoAction()) { }
 
     public DuoButtons(ButtonGroupControl grp, string buttonOne, string buttonOneTooltip, Action<DuoButtons> btnAction, string buttonTwo, string buttonTwoTooltip, Action<DuoButtons> buttonTwoAction) :
     this(grp.GroupContents, buttonOne, buttonOneTooltip, btnAction,
-        buttonTwo, buttonTwoTooltip, buttonTwoAction) 
-    { }
+        buttonTwo, buttonTwoTooltip, buttonTwoAction) { }
 }
 

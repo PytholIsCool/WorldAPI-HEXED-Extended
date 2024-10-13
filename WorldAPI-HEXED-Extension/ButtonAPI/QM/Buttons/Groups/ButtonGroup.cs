@@ -18,19 +18,14 @@ public class ButtonGroup : ButtonGroupControl {
             throw new NullReferenceException("Object Search has FAILED!");
 
         if (!(WasNoText = NoText)) {
-            headerGameObject = Object.Instantiate(APIBase.ButtonGrpText, parent);
-            TMProCompnt = headerGameObject.GetComponentInChildren<TextMeshProUGUI>(true);
+            TMProCompnt = (headerGameObject = Object.Instantiate(APIBase.ButtonGrpText, parent)).GetComponentInChildren<TextMeshProUGUI>(true);
             headerGameObject.GetComponentInChildren<TextMeshProUGUI>().text = text;
-            TMProCompnt.text = text;
+            Text = TMProCompnt.text = text;
             TMProCompnt.richText = true;
-            Text = text;
         }
 
-        gameObject = Object.Instantiate(APIBase.ButtonGrp, parent);
-        gameObject.name = text;
-        gameObject.transform.DestroyChildren();
-        GroupContents = gameObject;
-        transform = gameObject.transform;
+        (transform = (GroupContents = gameObject = Object.Instantiate(APIBase.ButtonGrp, parent)).transform).name = text;
+        transform.DestroyChildren();
 
         Layout = gameObject.GetComponent<GridLayoutGroup>();
         Layout.childAlignment = ButtonAlignment;
@@ -40,6 +35,5 @@ public class ButtonGroup : ButtonGroupControl {
 
     public void ChangeChildAlignment(TextAnchor ButtonAlignment = TextAnchor.UpperCenter) => Layout.childAlignment = ButtonAlignment;
 
-    public ButtonGroup(WorldPage page, string text, bool NoText = false, TextAnchor ButtonAlignment = TextAnchor.UpperCenter) : this(page.MenuContents, text, NoText, ButtonAlignment)
-        { }
+    public ButtonGroup(WorldPage page, string text, bool NoText = false, TextAnchor ButtonAlignment = TextAnchor.UpperCenter) : this(page.MenuContents, text, NoText, ButtonAlignment) { }
 }

@@ -8,27 +8,22 @@ using Object = UnityEngine.Object;
 
 namespace WorldAPI.ButtonAPI.Buttons;
 
-public class VRCButton : ExtendedControl
-{
+public class VRCButton : ExtendedControl {
     public VRCButton(Transform menu, string text, string tooltip, Action<VRCButton> listener, bool Half = false,
-        bool SubMenuIcon = false, Sprite Icon = null, HalfType Type = HalfType.Normal, bool IsGroup = false)
-    {
+        bool SubMenuIcon = false, Sprite Icon = null, HalfType Type = HalfType.Normal, bool IsGroup = false) {
         if (!APIBase.IsReady())
             throw new NullReferenceException("Object Search has FAILED!");
         Icon ??= APIBase.DefaultButtonSprite;
 
-        (transform = Object.Instantiate(APIBase.Button, menu)).name = $"Button_{text}";
-        gameObject = transform.gameObject;
+        (transform = (gameObject = Object.Instantiate(APIBase.Button, menu).gameObject).transform).name = $"Button_{text}";
         gameObject.SetActive(true);
 
         TMProCompnt = transform.GetComponentInChildren<TextMeshProUGUI>();
         if (TMProCompnt == null)
             throw new NullReferenceException("Unable to grab Text Object");
 
-        TMProCompnt.text = text;
+        Text = TMProCompnt.text = text;
         TMProCompnt.richText = true;
-
-        Text = text;
 
         ButtonCompnt = transform.GetComponent<Button>();
         if (ButtonCompnt == null)
@@ -39,19 +34,18 @@ public class VRCButton : ExtendedControl
         else ButtonCompnt.interactable = false;
 
 
-        ImgCompnt = transform.transform.Find("Icons/Icon").GetComponent<Image>();
+        ImgCompnt = transform.Find("Icons/Icon").GetComponent<Image>();
         //var elemetn = ImgCompnt.gameObject.GetComponent<StyleElement>();
         //if (elemetn != null) elemetn.enabled = false; Set as off to fix styling
 
         if (ImgCompnt.color == Color.black)
             ImgCompnt.color = Color.white;
 
-        Object.Destroy(transform.transform.Find("Icons/Icon_Secondary").gameObject);
+        Object.Destroy(transform.Find("Icons/Icon_Secondary").gameObject);
         if (Icon != null)
             SetSprite(Icon);
-        else
-        {
-            transform.transform.Find("Icons/Icon").gameObject.active = false;
+        else {
+            transform.Find("Icons/Icon").gameObject.active = false;
             ResetTextPox();
         }
 
@@ -68,7 +62,7 @@ public class VRCButton : ExtendedControl
     : this(buttonGroup, text, tooltip, (_) => click(), Half, subMenuIcon, icon, Type, IsGroup) 
 { 
     if (!Half && icon == null)
-        transform.transform.Find("Icons").gameObject.active = false;
+        transform.Find("Icons").gameObject.active = false;
 }
 
     public VRCButton(ButtonGroupControl buttonGroup, string text, string tooltip, Action<VRCButton> click, bool Half = false, bool subMenuIcon = false, Sprite icon = null, HalfType Type = HalfType.Normal, bool IsGroup = false)

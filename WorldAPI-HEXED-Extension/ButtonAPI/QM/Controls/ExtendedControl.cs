@@ -6,8 +6,7 @@ using Object = UnityEngine.Object;
 
 namespace WorldAPI.ButtonAPI.Controls;
 
-public class ExtendedControl : Root
-{
+public class ExtendedControl : Root {
     public Button ButtonCompnt { get; internal set; }
     public Image ImgCompnt { get; internal set; }
     public Action onClickAction { get; set; }
@@ -20,23 +19,20 @@ public class ExtendedControl : Root
     public void ShowSubMenuIcon(bool state) => gameObject.transform.Find("Badge_MMJump").gameObject.SetActive(state);
     public void SetIconColor(Color color) => ImgCompnt.color = color;
 
-    public override string SetToolTip(string tip)
-    {
+    public override string SetToolTip(string tip) {
         ToolTip = tip;
         return base.SetToolTip(tip);
     }
 
     public void SetAction(Action newAction) => SetAction((_) => newAction());
 
-    public void SetAction(Action<VRCButton> newAction)
-    {
+    public void SetAction(Action<VRCButton> newAction) {
         ButtonCompnt.onClick = new();
         onClickAction = () => newAction.Invoke(inst);
         ButtonCompnt.onClick.AddListener(new Action(() => APIBase.SafelyInvolk(onClickAction, Text)));
     }
 
-    public void SetBackgroundImage(Sprite newImg)
-    {
+    public void SetBackgroundImage(Sprite newImg) {
         gameObject.transform.Find("Background").GetComponent<Image>().sprite = newImg;
         gameObject.transform.Find("Background").GetComponent<Image>().overrideSprite = newImg;
     }
@@ -44,8 +40,7 @@ public class ExtendedControl : Root
 
     internal void ResetTextPox() => TMProCompnt.transform.localPosition = new Vector3(0, 0, 0);
 
-    public void TurnHalf(HalfType Type, bool IsGroup)
-    {
+    public void TurnHalf(HalfType Type, bool IsGroup) {
         ImgCompnt.gameObject.active = false;
         TMProCompnt.fontSize = 22;
 
@@ -55,8 +50,7 @@ public class ExtendedControl : Root
         if (IsGroup) gameObject.transform.Find("Background").GetComponent<RectTransform>().sizeDelta = new Vector2(0, -115);
         else gameObject.transform.Find("Background").GetComponent<RectTransform>().sizeDelta = new Vector2(0, -80);
 
-        switch (Type)
-        {
+        switch (Type) {
             case HalfType.Top:
                 ImgCompnt.transform.localPosition = new Vector3(0f, 0f, 0f);
                 TMProCompnt.transform.localPosition = new Vector3(0, 90, 0);
@@ -75,8 +69,7 @@ public class ExtendedControl : Root
 
     }
 
-    public enum HalfType
-    {
+    public enum HalfType {
         Top,
         Normal,
         Bottom

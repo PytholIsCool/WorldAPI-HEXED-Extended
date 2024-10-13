@@ -39,18 +39,16 @@ public class MMPage : WorldPage {
         var region = 0;
 
         try {
-            gameObject = Object.Instantiate(APIBase.MMMpageTemplate, APIBase.MMMpageTemplate.transform.parent);
-            transform = gameObject.transform;
-            gameObject.name = menuName;
-            gameObject.transform.Find("Loading_Display").gameObject.active = false;
-            MenuName = menuName;
+            MenuName = (transform = (gameObject = Object.Instantiate(APIBase.MMMpageTemplate, APIBase.MMMpageTemplate.transform.parent)).transform).name = menuName;
+            transform.Find("Loading_Display").gameObject.active = false;
+
             var ttext = gameObject.transform.Find("Header_MM_UserName/LeftItemContainer/Text_Title").GetComponent<TextMeshProUGUI>();
             ttext.text = MenuName;
             ttext.richText = true;
 
             region++;
             Page = gameObject.GetComponent<UIPage>();
-            var GuidName = menuName + Guid.NewGuid();
+            var GuidName = $"{menuName}_{Guid.NewGuid()}";
             Page.field_Public_String_0 = GuidName;
             (Page.field_Private_List_1_UIPage_0 = new()).Add(Page);
             region++;

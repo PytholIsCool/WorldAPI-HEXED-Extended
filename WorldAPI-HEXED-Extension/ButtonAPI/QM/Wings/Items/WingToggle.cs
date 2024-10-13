@@ -4,9 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WorldAPI.ButtonAPI.QM.Wings.Items
-{
-    internal class WingToggle
-    {
-    }
+namespace WorldAPI.ButtonAPI.QM.Wings.Items;
+
+public class WingToggle {
 }

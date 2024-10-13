@@ -1,4 +1,5 @@
-﻿using System;
+﻿using WorldAPI.ButtonAPI.QM.Extras;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -10,8 +11,7 @@ using Object = UnityEngine.Object;
 
 namespace WorldAPI.ButtonAPI.Controls;
 
-public class ButtonGroupControl : Root
-{
+public class ButtonGroupControl : Root {
     internal List<VRCButton> _buttons = new();
     internal List<VRCToggle> _toggles = new();
 
@@ -25,8 +25,7 @@ public class ButtonGroupControl : Root
     /// <summary>
     ///  Remove Buttons, Toggles, anything that was put on this ButtnGrp
     /// </summary>
-    public void RemoveAllChildren()
-    {
+    public void RemoveAllChildren() {
         GroupContents.transform.DestroyChildren();
         _buttons.Clear();
         _toggles.Clear();
@@ -68,4 +67,6 @@ public class ButtonGroupControl : Root
         new(gameObject, buttonOne, buttonOneTooltip, btnAction,
             buttonTwo, buttonTwoTooltip, buttonTwoAction);
 
+    //public TriStateToggle AddTriStateToggle(string text, Action listenerA, Action listenerB, Action listenerC, string tooltipA = "", string tooltipB = "", string tooltipC = "") =>
+    //    new(gameObject.transform, text, listenerA, listenerB, listenerC, tooltipA, tooltipB, tooltipC);
 }
