@@ -19,6 +19,7 @@ using VRC.UI.Element;
 using WorldAPI.ButtonAPI.QM.Controls;
 
 namespace WorldAPI.ButtonAPI.QM.Carousel.Items;
+
 public class QMCFuncButton : QMCControl {
     public Action<bool> Listener { get; set; }
     public bool isToggled { get; private set; }
@@ -30,6 +31,7 @@ public class QMCFuncButton : QMCControl {
     public Sprite OffSprite { get; private set; }
     private bool shouldInvoke = true;
     private Image Tsprite;
+    
     public QMCFuncButton(Transform parent, string text, string tooltip, Action listener, bool rightContainer = false, bool separator = false, Sprite sprite = null) {
         if (!APIBase.IsReady())
             throw new NullReferenceException("Object Search has FAILED!");
