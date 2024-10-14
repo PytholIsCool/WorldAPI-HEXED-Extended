@@ -21,12 +21,12 @@ public class QMCGroup : Root {
         if (!APIBase.IsReady())
             throw new NullReferenceException("Object Search has FAILED!");
 
-        (gameObject = Object.Instantiate(APIBase.QMCarouselPageTemplate, parent)).name = text;
+        (transform = (gameObject = Object.Instantiate(APIBase.QMCarouselPageTemplate, parent)).transform).name = $"QMCGroup_{text}";
 
         GameObject bg = APIBase.QMCarouselPageTemplate.transform.Find("QM_Settings_Panel/VerticalLayoutGroup/Background_Info").gameObject;
-        Transform label = gameObject.transform.Find("QM_Foldout/Label");
+        Transform label = transform.Find("QM_Foldout/Label");
         label.GetComponent<TextMeshProUGUI>().text = text;
-        Transform settingsPanel = gameObject.transform.Find("QM_Settings_Panel/VerticalLayoutGroup");
+        Transform settingsPanel = transform.Find("QM_Settings_Panel/VerticalLayoutGroup");
         settingsPanel.DestroyChildren();
         GameObject newBG = Object.Instantiate(bg, settingsPanel);
         newBG.name = "Background_Info";
@@ -35,7 +35,12 @@ public class QMCGroup : Root {
 
         parentMenuMask = parent.parent.GetComponent<RectMask2D>();
     }
-
+    public QMCGroup AddSpacer() {
+        Transform s;
+        (s = Object.Instantiate(APIBase.QMCarouselPageTemplate?.transform.Find("Spacer"), this.GetTransform())).SetSiblingIndex(0);
+        s.name = "Spacer";
+        return this;
+    }
     public void ChangeChildAlignment(TextAnchor ButtonAlignment = TextAnchor.UpperLeft) => Layout.childAlignment = ButtonAlignment;
 
     public QMCGroup(WorldPage page, string text, TextAnchor ButtonAlignment = TextAnchor.UpperLeft) : this(page.MenuContents, text, ButtonAlignment) { }

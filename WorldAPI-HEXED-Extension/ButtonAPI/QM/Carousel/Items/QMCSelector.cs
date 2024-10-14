@@ -41,32 +41,67 @@ public class QMCSelector : QMCControl {
         buttonRight.onClick.AddListener(new Action(() => ScrollRight()));
     }
 
-    public QMCSelector AddSetting(string name, string tooltip, Action listener) {
+    public QMCSelector AddSetting(string name, string tooltip, Action listener, bool invokeOnInit = true) {
         settings.Add(new Setting { Name = name, Tooltip = tooltip, Listener = listener });
         if (settings.Count == 1) {
             UpdateDisplayedSetting(0);
+            TryInvoke(0, invokeOnInit);
         }
         return this;
     }
+    public QMCSelector RemoveSetting(string name, bool invokeOnRemove = false) {
+        int i = settings.FindIndex(s => s.Name == name);
 
+        if (i == -1)
+            throw new NullReferenceException($"Setting \"{name}\" Not Found Or Does Not Exist.");
+        TryInvoke(currentIndex, invokeOnRemove);
+        settings.RemoveAt(i);
+
+        if (settings.Count > 0) {
+            if (currentIndex >= i) {
+                currentIndex = Mathf.Clamp(currentIndex, 0, settings.Count - 1);
+            }
+            UpdateDisplayedSetting(currentIndex);
+        }
+        else {
+            TMProSelectionBoxText.text = "N/A";
+            SelectionBoxTextTooltip._localizableString = "N/A".Localize();
+        }
+
+        return this;
+    }
+    public QMCSelector ClearSettings() {
+        settings.Clear();
+        TMProSelectionBoxText.text = "N/A";
+        SelectionBoxTextTooltip._localizableString = "N/A".Localize();
+        return this;
+    }
     private void ScrollLeft() {
         if (settings.Count == 0) return;
         currentIndex = (currentIndex - 1 + settings.Count) % settings.Count;
         UpdateDisplayedSetting(currentIndex);
+        TryInvoke(currentIndex, true);
     }
 
     private void ScrollRight() {
         if (settings.Count == 0) return;
         currentIndex = (currentIndex + 1) % settings.Count;
         UpdateDisplayedSetting(currentIndex);
+        TryInvoke(currentIndex, true);
     }
 
     private void UpdateDisplayedSetting(int index) {
         var setting = settings[index];
         (TMProSelectionBoxText = this.transform.Find("RightItemContainer/OptionSelectionBox/Text_MM_H3").GetComponent<TextMeshProUGUI>()).text = setting.Name;
         (SelectionBoxTextTooltip = this.transform.Find("RightItemContainer/OptionSelectionBox").GetComponent<ToolTip>())._localizableString = setting.Tooltip.Localize();
-        setting.Listener?.Invoke();
     }
+    private void TryInvoke(int index, bool i) {
+        if (i == true) {
+            var setting = settings[index];
+            setting.Listener?.Invoke();
+        }
+    }
+
 
     private class Setting {
         public string Name { get; set; }

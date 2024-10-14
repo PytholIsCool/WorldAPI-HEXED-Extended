@@ -70,11 +70,13 @@ public class WingPage : PyWingPage {
         if (wingSide == WingSide.Left) {
             APIBase.QuickMenu?.transform.Find(LPar).gameObject.SetActive(false);
             page.gameObject.SetActive(true);
+            
             page.Method_Protected_Void_Boolean_TransitionType_0(true, UIPage.TransitionType.Right);
         }
         else {
             APIBase.QuickMenu?.transform.Find(RPar).gameObject.SetActive(false);
             page.gameObject.SetActive(true);
+            
             page.Method_Protected_Void_Boolean_TransitionType_0(true, UIPage.TransitionType.Left);
         }
     }
