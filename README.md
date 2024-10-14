@@ -127,6 +127,11 @@ This build is confirmed to be safe.
 - Added the option to invoke the listener of a setting upon removal
 - Added AddSpacer() method to the QMCGroup
 
+## Update 2.71.0
+- Added hud popups
+- Added QM message popups
+- Added MM message popups
+
 
   ## Known Bug(s)
 - Applying a QMC-Type Control to a collapsible button group will put the control at the above all other controls by default
