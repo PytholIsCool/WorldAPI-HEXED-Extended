@@ -120,6 +120,13 @@ This build is confirmed to be safe.
 - Visible progress on the Wing API
 > Not ready for use yet, but close
 
+## Update 2.7.0
+- Added RemoveSetting() method to the QMCSelector
+- Added ClearSettings() method to the QMCSelector
+- Added the option to invoke the first-added QMCSelector setting listener on initialization
+- Added the option to invoke the listener of a setting upon removal
+- Added AddSpacer() method to the QMCGroup
+
 
   ## Known Bug(s)
 - Applying a QMC-Type Control to a collapsible button group will put the control at the above all other controls by default
