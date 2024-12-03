@@ -12,7 +12,6 @@ using WorldAPI.ButtonAPI.Controls;
 using WorldAPI.ButtonAPI.Extras;
 using WorldAPI.ButtonAPI.Groups;
 using Object = UnityEngine.Object;
-using Console = Serpentine.PyLog.Console;
 using UnityEngine.Playables;
 using WorldAPI.ButtonAPI.Buttons;
 using VRC.UI.Element;
@@ -67,51 +66,51 @@ public class QMCFuncButton : QMCControl {
     public QMCFuncButton AddButton(string text, string tooltip, Action listener, bool rightContainer = false, Sprite sprite = null) {
         ButtonParent = rightContainer ? rightPar : leftPar;
 
-        Transform newButton = Object.Instantiate(APIBase.QMCarouselFuncButtonTemplate.transform.Find("LeftItemContainer/Button (1)"), ButtonParent);
-        newButton.name = text;
+        transform = Object.Instantiate(APIBase.QMCarouselFuncButtonTemplate.transform.Find("LeftItemContainer/Button (1)"), ButtonParent);
+        transform.name = text;
 
         if (sprite != null) {
-            var Tsprite = newButton.Find("Icon").GetComponent<Image>();
+            var Tsprite = transform.Find("Icon").GetComponent<Image>();
             Tsprite.overrideSprite = sprite;
             Tsprite.gameObject.SetActive(true);
         }
 
-        (TMProCompnt = newButton.Find("Text_MM_H3").GetComponent<TextMeshProUGUI>()).text = text;
+        (TMProCompnt = transform.Find("Text_MM_H3").GetComponent<TextMeshProUGUI>()).text = text;
         TMProCompnt.richText = true;
 
-        newButton.GetComponent<ToolTip>()._localizableString = tooltip.Localize();
+        transform.GetComponent<ToolTip>()._localizableString = tooltip.Localize();
 
-        (ButtonCompnt = newButton.GetComponent<Button>()).onClick = new();
+        (ButtonCompnt = transform.GetComponent<Button>()).onClick = new();
         ButtonCompnt.onClick.AddListener(listener);
 
-        newButton.gameObject.SetActive(true);
+        transform.gameObject.SetActive(true);
 
         return this;
     }
     public QMCFuncButton AddToggle(string text, Action<bool> listener, string tooltip = "", bool rightContainer = false, bool defaultState = false, Sprite onSprite = null, Sprite offSprite = null) {
         ButtonParent = rightContainer ? rightPar : leftPar;
 
-        Transform newToggle = Object.Instantiate(APIBase.QMCarouselFuncButtonTemplate.transform.Find("LeftItemContainer/Button (1)"), ButtonParent);
-        newToggle.name = $"{text}_FunctionToggle";
+        transform = Object.Instantiate(APIBase.QMCarouselFuncButtonTemplate.transform.Find("LeftItemContainer/Button (1)"), ButtonParent);
+        transform.name = $"{text}_FunctionToggle";
 
-        (OnImageObj = Object.Instantiate(newToggle.Find("Icon").gameObject, newToggle)).name = "OnIcon";
+        (OnImageObj = Object.Instantiate(transform.Find("Icon").gameObject, transform)).name = "OnIcon";
         OnImageObj.GetComponent<Image>().sprite = onSprite ?? APIBase.OnSprite;
 
-        (OffImageObj = Object.Instantiate(newToggle.Find("Icon").gameObject, newToggle)).name = "OffIcon";
+        (OffImageObj = Object.Instantiate(transform.Find("Icon").gameObject, transform)).name = "OffIcon";
         OffImageObj.GetComponent<Image>().sprite = offSprite ?? APIBase.OffSprite;
 
-        newToggle.Find("Icon").gameObject.SetActive(false);
+        transform.Find("Icon").gameObject.SetActive(false);
 
-        (TMProCompnt = newToggle.Find("Text_MM_H3").GetComponent<TextMeshProUGUI>()).text = text;
+        (TMProCompnt = transform.Find("Text_MM_H3").GetComponent<TextMeshProUGUI>()).text = text;
         TMProCompnt.richText = true;
 
-        newToggle.GetComponent<ToolTip>()._localizableString = tooltip.Localize();
+        transform.GetComponent<ToolTip>()._localizableString = tooltip.Localize();
 
         bool isToggledLocal = defaultState;
         OnImageObj.SetActive(isToggledLocal);
         OffImageObj.SetActive(!isToggledLocal);
 
-        Button buttonComponent = newToggle.GetComponent<Button>();
+        Button buttonComponent = transform.GetComponent<Button>();
         buttonComponent.onClick = new();
         buttonComponent.onClick.AddListener(new Action(() => {
             isToggledLocal = !isToggledLocal;
@@ -123,7 +122,7 @@ public class QMCFuncButton : QMCControl {
                 APIBase.SafelyInvolk(isToggledLocal, listener, text);
         }));
 
-        newToggle.gameObject.SetActive(true);
+        transform.gameObject.SetActive(true);
 
         return this;
     }

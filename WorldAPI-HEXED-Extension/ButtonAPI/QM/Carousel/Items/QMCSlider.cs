@@ -71,6 +71,8 @@ public class QMCSlider : SliderControl {
         return this;
     }
 
+    //button code goes here
+
     private void ResetValue(float value) {
         Transform toggleButton = this.transform.Find("RightItemContainer/Cell_MM_ToggleSwitch");
         Transform muteButton = this.transform.Find("RightItemContainer/Cell_MM_ToggleButton");

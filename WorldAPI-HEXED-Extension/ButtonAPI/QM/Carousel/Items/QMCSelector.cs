@@ -70,6 +70,7 @@ public class QMCSelector : QMCControl {
 
         return this;
     }
+    public bool IsEmpty() => settings.Count == 0;
     public QMCSelector ClearSettings() {
         settings.Clear();
         TMProSelectionBoxText.text = "N/A";
