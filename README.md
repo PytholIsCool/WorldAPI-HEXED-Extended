@@ -132,10 +132,17 @@ This build is confirmed to be safe.
 - Added QM message popups
 - Added MM message popups
 
+## Update 3.0.0
+- Added an all-new NamePlate API
+  > Supports plates, tags, icons, ect
+- Added an IsEmpty() method to the QMCSelector
+- Reworked the Base64 system
+- Fixed a reference issue
 
   ## Known Bug(s)
 - Applying a QMC-Type Control to a collapsible button group will put the control at the above all other controls by default
 - Custom Main Menu Tabs highlight the profile tab upon clicking
+- Clicking on a tab won't highlight it (Working on fixing this rn)
 
 
 # Credits
