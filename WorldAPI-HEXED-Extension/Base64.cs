@@ -1,28 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace WorldAPI;
 
-public class Base64 //this is a useless class, dont worry about this
-{
+public class Base64 {
     public static Dictionary<string, Sprite> AlreadyLoaded = new();
+    public static Sprite GetAndSetSprite(string base64String) {
+        if (AlreadyLoaded.ContainsKey(base64String))
+            return AlreadyLoaded[base64String];
 
-    public static Sprite FromBase(string data)
-    {
-        AlreadyLoaded.TryGetValue(data, out var sprite);
-        if (sprite != null) return AlreadyLoaded[data];
-        Texture2D t = new(2, 2);
-        ImageConversion.LoadImage(t, Convert.FromBase64String(data));
-        Rect rect = new(0.0f, 0.0f, t.width, t.height);
-        Vector2 pivot = new(0.5f, 0.5f);
-        Vector4 border = Vector4.zero;
+        byte[] imageBytes = Il2CppSystem.Convert.FromBase64String(base64String);
+        Texture2D texture = new Texture2D(4, 4);
+        texture.LoadImage(imageBytes);
+        Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(1f, 1f));
+        AlreadyLoaded.Add(base64String, sprite);
 
-        Sprite s = Sprite.CreateSprite_Injected(t, ref rect, ref pivot, 100.0f, 0, SpriteMeshType.Tight, ref border, false, null); 
-        AlreadyLoaded.Add(data, s);
-        return s;
+        return sprite;
     }
 }
