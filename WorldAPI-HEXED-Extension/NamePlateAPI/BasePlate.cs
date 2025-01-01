@@ -13,12 +13,15 @@ public static class BasePlate {
     #region Plates
     public class Plate {
         private static int PlateCount { get; set; }
+        public Player Owner { get; private set; }
         public Transform _basePlate { get; internal set; }
         public Transform transform { get; internal set; }
         public GameObject gameObject { get; internal set; }
         public Dictionary<string, Tag> TagList { get; internal set; }
         public Dictionary<Sprite, Icon> IconList { get; internal set; }
         public Plate(Player player) {
+            Owner = player;
+
             CheckCountContainer(player);
 
             (transform = (gameObject = Object.Instantiate((_basePlate = player._vrcplayer.field_Public_PlayerNameplate_0.transform).Find("Contents/Quick Stats").gameObject, player._vrcplayer.field_Public_PlayerNameplate_0.transform.Find("Contents"))).transform).name = $"PyPlateBase_{Guid.NewGuid()}";
@@ -34,6 +37,7 @@ public static class BasePlate {
 
             gameObject.SetActive(true);
         }
+        public Player GetOwner() => Owner;
         public Tag AddTag(string text) {
             var temp = new Tag(this, text);
             TagList.Add(temp.Identifier, temp);
