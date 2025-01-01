@@ -143,6 +143,10 @@ This build is confirmed to be safe.
 - Added FindTag and FindIcon methods to the Plate class for easier plate handling
 - Haven't tested
 
+## Update 3.0.2
+- Added GetOwner method to Plate class for easier plate handling
+- Haven't tested
+
   ## Known Bug(s)
 - Applying a QMC-Type Control to a collapsible button group will put the control at the above all other controls by default
 - Custom Main Menu Tabs highlight the profile tab upon clicking
