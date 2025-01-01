@@ -17,8 +17,6 @@ public static class BasePlate {
         public Transform _basePlate { get; internal set; }
         public Transform transform { get; internal set; }
         public GameObject gameObject { get; internal set; }
-        public Dictionary<string, Tag> TagList { get; internal set; }
-        public Dictionary<Sprite, Icon> IconList { get; internal set; }
         public Plate(Player player) {
             Owner = player;
 
@@ -38,18 +36,8 @@ public static class BasePlate {
             gameObject.SetActive(true);
         }
         public Player GetOwner() => Owner;
-        public Tag AddTag(string text) {
-            var temp = new Tag(this, text);
-            TagList.Add(temp.Identifier, temp);
-            return temp;
-        }
-        public Tag FindTag(string indentifier) => TagList[indentifier];
-        public Icon AddIcon(Sprite sprite, Sprite subSprite = null) {
-            var temp = new Icon(this, sprite, subSprite);
-            IconList.Add(sprite, temp);
-            return temp;
-        }
-        public Icon FindIcon(Sprite identifier) => IconList[identifier];
+        public Tag AddTag(string text) => new(this, text);
+        public Icon AddIcon(Sprite sprite, Sprite subSprite = null) => new(this, sprite, subSprite);
 
         private static void CheckCountContainer(Player player) { //I've thought of about a million different ways to do this and they'd all be more efficient but ive stopped caring
             if (player._vrcplayer.field_Public_PlayerNameplate_0.transform.Find("Count") == null) {
@@ -69,12 +57,10 @@ public static class BasePlate {
 
         #region Tags
         public class Tag {
-            public string Identifier {  get; private set; }
             public Transform transform { get; internal set; }
             public GameObject gameObject { get; internal set; }
             public TextMeshProUGUI TMProCompt { get; internal set; }
             private string _text { get; set; }
-            private static int TempID = 0;
             public string Text {
                 get => _text; set {
                     _text = value;
@@ -86,12 +72,6 @@ public static class BasePlate {
                 (TMProCompt = (transform = (gameObject = Object.Instantiate(plate._basePlate.Find("Contents/Quick Stats/Trust Text"), plate.transform).gameObject).transform).GetComponent<TextMeshProUGUI>()).text = text;
                 TMProCompt.richText = true;
                 TMProCompt.color = new(1f, 1f, 1f, 1f);
-
-                if (text == null)
-                    Identifier = TempID++.ToString();
-                else
-                    Identifier = text;
-                plate.TagList.Add(Identifier, this);
             }
         }
         #endregion
@@ -124,7 +104,6 @@ public static class BasePlate {
                     (SubImage = Image.transform.Find("Reason").GetComponent<Image>()).overrideSprite = subIcon;
                 else
                     (SubImage = Image.transform.Find("Reason").GetComponent<Image>()).gameObject.SetActive(false);
-                plate.IconList.Add(icon, this);
             }
             #endregion
         }
