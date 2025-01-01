@@ -139,6 +139,10 @@ This build is confirmed to be safe.
 - Reworked the Base64 system
 - Fixed a reference issue
 
+## Update 3.0.1
+- Added FindTag and FindIcon methods to the Plate class for easier plate handling
+- Haven't tested
+
   ## Known Bug(s)
 - Applying a QMC-Type Control to a collapsible button group will put the control at the above all other controls by default
 - Custom Main Menu Tabs highlight the profile tab upon clicking
