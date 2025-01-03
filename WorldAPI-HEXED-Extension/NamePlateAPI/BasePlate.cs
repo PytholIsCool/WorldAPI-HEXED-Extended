@@ -57,6 +57,7 @@ public static class BasePlate {
 
         #region Tags
         public class Tag {
+            public Plate ParentPlate { get; private set; }
             public Transform transform { get; internal set; }
             public GameObject gameObject { get; internal set; }
             public TextMeshProUGUI TMProCompt { get; internal set; }
@@ -69,6 +70,7 @@ public static class BasePlate {
                 }
             }
             public Tag(Plate plate, string text) {
+                ParentPlate = plate;
                 (TMProCompt = (transform = (gameObject = Object.Instantiate(plate._basePlate.Find("Contents/Quick Stats/Trust Text"), plate.transform).gameObject).transform).GetComponent<TextMeshProUGUI>()).text = text;
                 TMProCompt.richText = true;
                 TMProCompt.color = new(1f, 1f, 1f, 1f);
