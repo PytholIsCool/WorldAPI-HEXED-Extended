@@ -1,3 +1,5 @@
+# This API is deprecated and will not be recieving any more updates.
+
 # WorldAPI HEXED Extension
 <p align="center">
 <img src="https://github.com/PytholIsCool/Assets/blob/main/Assets/VRC/Hexed/Hexed%20Banner%20Transparent.png" />
